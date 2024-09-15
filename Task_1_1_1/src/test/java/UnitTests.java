@@ -1,46 +1,85 @@
 import org.example.HeapSort;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import java.util.Arrays;
+import java.util.Random;
 
-public class UnitTests {
+public class UnitTests
+{
+    Random rnd = new Random();
     HeapSort func = new HeapSort();
     @Test
-    void TwoElemsArray()
+    void OneElem()
     {
-        int[] out = {511,-2};
+        int len = 1;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = arr.clone();
         func.sort(out, out.length);
-        assertArrayEquals(new int[] {-2, 511}, out);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
     }
 
     @Test
-    void TestEmptyArray()
+    void ThousElem()
     {
-        int[] out = {};
+        int len = 1000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = arr.clone();
         func.sort(out, out.length);
-        assertArrayEquals(new int[] {}, out);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
     }
 
     @Test
-    void TestNegativeArray()
+    void HunThousElem()
     {
-        int[] out = {7, 5, -3, -1, -4};
+        int len = 100000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = arr.clone();
         func.sort(out, out.length);
-        assertArrayEquals(new int[] {-4, -3, -1, 5, 7}, out);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
     }
 
     @Test
-    void TestBigArray()
+    void MillionElem()
     {
-        int[] out = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        int len = 1000000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = arr.clone();
         func.sort(out, out.length);
-        assertArrayEquals(new int[] {1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10}, out);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
     }
 
     @Test
-    void TestSameArray()
+    void TenMillionElem()
     {
-        int[] out = {-1,-1,-1,-1,-1,-1};
+        int len = 10000000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = arr.clone();
         func.sort(out, out.length);
-        assertArrayEquals(new int[] {-1,-1,-1,-1,-1,-1}, out);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
     }
 }

@@ -2,7 +2,8 @@ package org.example;
 
 import java.util.Scanner;
 
-public class HeapSort {
+public class HeapSort
+{
     // Sorting the original array of length len by the Pyramid Sorting Method
     public void sort(int[] arr, int len)
     {
@@ -64,7 +65,6 @@ public class HeapSort {
         // Reading value of len
         int len = scan.nextInt();
         int[] arr = new int[len];
-
         // Reading values of a massive
         for(int i = 0; i < len; ++i)
         {
