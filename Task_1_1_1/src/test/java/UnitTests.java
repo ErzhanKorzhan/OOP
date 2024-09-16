@@ -8,32 +8,17 @@ public class UnitTests
 {
     Random rnd = new Random();
     HeapSort func = new HeapSort();
-    @Test
-    void OneElem()
-    {
-        int len = 1;
-        int[] arr = new int[len];
-        for (int i = 0; i < len; ++i)
-        {
-            arr[i] = rnd.nextInt();
-        }
-        int[] out = arr.clone();
-        func.sort(out, out.length);
-        Arrays.sort(arr);
-        assertArrayEquals(arr, out);
-    }
 
     @Test
-    void ThousElem()
+    void TenThousElem()
     {
-        int len = 1000;
+        int len = 10000;
         int[] arr = new int[len];
         for (int i = 0; i < len; ++i)
         {
             arr[i] = rnd.nextInt();
         }
-        int[] out = arr.clone();
-        func.sort(out, out.length);
+        int[] out = func.sort(arr, arr.length);
         Arrays.sort(arr);
         assertArrayEquals(arr, out);
     }
@@ -47,8 +32,7 @@ public class UnitTests
         {
             arr[i] = rnd.nextInt();
         }
-        int[] out = arr.clone();
-        func.sort(out, out.length);
+        int[] out = func.sort(arr, arr.length);
         Arrays.sort(arr);
         assertArrayEquals(arr, out);
     }
@@ -62,8 +46,7 @@ public class UnitTests
         {
             arr[i] = rnd.nextInt();
         }
-        int[] out = arr.clone();
-        func.sort(out, out.length);
+        int[] out = func.sort(arr, arr.length);
         Arrays.sort(arr);
         assertArrayEquals(arr, out);
     }
@@ -77,8 +60,49 @@ public class UnitTests
         {
             arr[i] = rnd.nextInt();
         }
-        int[] out = arr.clone();
-        func.sort(out, out.length);
+        int[] out = func.sort(arr, arr.length);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
+    }
+
+    @Test
+    void ElevenMillionElem()
+    {
+        int len = 11000000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = func.sort(arr, arr.length);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
+    }
+
+    @Test
+    void TwelveMillionElem()
+    {
+        int len = 12000000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = func.sort(arr, arr.length);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, out);
+    }
+
+    @Test
+    void ThirteenMillionElem()
+    {
+        int len = 13000000;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ++i)
+        {
+            arr[i] = rnd.nextInt();
+        }
+        int[] out = func.sort(arr, arr.length);
         Arrays.sort(arr);
         assertArrayEquals(arr, out);
     }

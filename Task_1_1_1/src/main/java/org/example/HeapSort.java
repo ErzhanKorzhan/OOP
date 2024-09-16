@@ -4,78 +4,17 @@ import java.util.Scanner;
 
 public class HeapSort
 {
-    // Sorting the original array of length len by the Pyramid Sorting Method
-    public void sort(int[] arr, int len)
-    {
-        // Building a heap (in our case, rearranging the array)
-        for (int i = len / 2 - 1; i >= 0; --i)
-        {
-            heapify(arr, len, i);
-        }
-
-        // One by one extract the elements from our heap
-        for (int i = len-1; i >= 0; --i)
-        {
-            // Moving the root of tree to the end
-            int temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
-
-            // Calling the heapify procedure
-            heapify(arr, i, 0);
-        }
-    }
-
-    // The procedure for sifting our array (convert the subtree into a binary heap)
-    private void heapify(int[] arr, int n, int i)
-    {
-        int largest = i; // Init large element
-        int left = 2*i + 1; // left = 2*i + 1
-        int righ = 2*i + 2; // right = 2*i + 2
-
-        // If the left child element is larger than the root
-        if (left < n && arr[left] > arr[largest])
-        {
-            largest = left;
-        }
-
-        // If the right child element is larger than the largest element
-        if (righ < n && arr[righ] > arr[largest])
-        {
-            largest = righ;
-        }
-
-        // If the largest element is not the root
-        if (largest != i)
-        {
-            int swap = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = swap;
-
-            // Recursively convert the affected subtree into a heap
-            heapify(arr, n, largest);
-        }
-    }
-
-    // Reading and returning an array after sorting
-    public static void main(String[] args)
+    public void read_mas_elems(int[] arr, int len)
     {
         Scanner scan = new Scanner(System.in);
-
-        // Reading value of len
-        int len = scan.nextInt();
-        int[] arr = new int[len];
-        // Reading values of a massive
         for(int i = 0; i < len; ++i)
         {
             arr[i] = scan.nextInt();
         }
+    }
 
-        // The beginning of sorting
-        HeapSort ob = new HeapSort();
-        ob.sort(arr, len);
-
-        // Output of the sorted array
+    public void out_mas_elems(int[] arr, int len)
+    {
         System.out.println("\nSorted array is");
         System.out.print("[");
         for (int i = 0; i < len; ++i)
@@ -90,5 +29,56 @@ public class HeapSort
             }
         }
         System.out.println("]");
+    }
+
+    public int[] sort(int[] mas, int len)
+    {
+        int[] arr = mas.clone();
+        building_heap(arr,len);
+
+        for (int i = len-1; i >= 0; --i)
+        {
+            swap(arr, i, 0);
+            heapify(arr, i, 0);
+        }
+        return arr;
+    }
+
+    private void building_heap(int[] arr, int len)
+    {
+        for (int i = len / 2 - 1; i >= 0; --i)
+        {
+            heapify(arr, len, i);
+        }
+    }
+
+    private void swap(int[] arr, int i, int j)
+    {
+        int temp = arr[j];
+        arr[j] = arr[i];
+        arr[i] = temp;
+    }
+
+    private void heapify(int[] arr, int n, int i)
+    {
+        int largest = i; // Init large element
+        int left = 2*i + 1; // left = 2*i + 1
+        int righ = 2*i + 2; // right = 2*i + 2
+
+        if (left < n && arr[left] > arr[largest])
+        {
+            largest = left;
+        }
+
+        if (righ < n && arr[righ] > arr[largest])
+        {
+            largest = righ;
+        }
+
+        if (largest != i)
+        {
+            swap(arr, i, largest);
+            heapify(arr, n, largest);
+        }
     }
 }
