@@ -1,9 +1,0 @@
--classpath 'C:\\Project\\OOP\\Task_1_1_2\\build\\classes\\java\\main;C:\\Project\\OOP\\Task_1_1_2\\build\\resources\\main'
--d 'C:\\Project\\OOP\\Task_1_1_2\\build\\docs\\javadoc'
--doctitle 'Task_1_1_2 1.0-SNAPSHOT API'
--notimestamp 
--quiet 
--windowtitle 'Task_1_1_2 1.0-SNAPSHOT API'
-'C:\\Project\\OOP\\Task_1_1_2\\src\\main\\java\\org\\example\\Deck.java'
-'C:\\Project\\OOP\\Task_1_1_2\\src\\main\\java\\org\\example\\Main.java'
-'C:\\Project\\OOP\\Task_1_1_2\\src\\main\\java\\org\\example\\Player.java'
