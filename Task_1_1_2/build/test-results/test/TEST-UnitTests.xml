@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UnitTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-09-17T15:54:44" hostname="DESKTOP-T1609M5" time="0.026">
+  <properties/>
+  <testcase name="OneElem()" classname="UnitTests" time="0.026"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
