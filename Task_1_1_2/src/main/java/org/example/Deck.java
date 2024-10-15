@@ -47,40 +47,11 @@ public class Deck {
         }
     }
 
-    public int check_win(int[] amt_points)
-    {
-        if(amt_points[1] == 21)
-        {
-            return 1;
-        }
-        else if (amt_points[1] > 21)
-        {
-            return 2;
-        }
-        return 0;
-    }
-
     public String card_name(int num_card){
         if (num_card >= 52){
             return names[(num_card-4)/4]+" "+mast[(num_card-4)%4]+" ("+values[num_card/4]+")";
         }
         return names[num_card/4]+" "+mast[num_card%4]+" ("+values[num_card/4]+")";
-    }
-
-    public void print_score(int player_wins, int dealer_wins)
-    {
-        if (player_wins>dealer_wins)
-        {
-            System.out.print("Счет " + player_wins + ":" + dealer_wins +" в вашу пользу.\n");
-        }
-        else if(dealer_wins>player_wins)
-        {
-            System.out.print("Счет " + player_wins + ":" + dealer_wins + " в пользу дилера.\n");
-        }
-        else
-        {
-            System.out.print("Счет " + player_wins + ":" + dealer_wins + ".\n");
-        }
     }
 
     public void print_cards(int[] cards_num_player, int[] amt_points_player, int[] cards_num_dealer, int[] amt_points_dealer, boolean closed)
