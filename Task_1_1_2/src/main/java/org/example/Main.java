@@ -9,6 +9,7 @@ public class Main
         Scanner scan = new Scanner(System.in);
         Game game = new Game();
         Deck deck = new Deck();
+        deck.uniqueListGenerator();
         Player player = new Player();
         Player dealer = new Player();
         int num_round = 0;

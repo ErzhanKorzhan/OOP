@@ -1,8 +1,12 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
-    public int[] amt_points = {0,0};
-    public int[] cards_num = new int[52];
+    public int amt = 0;
+    public int points = 0;
+    public List<Integer> cards_num = new ArrayList<>();
     public boolean check_ace = false;
     public int amt_wins = 0;
 
@@ -24,11 +28,11 @@ public class Player {
 
     public int check_win(Player player)
     {
-        if(player.amt_points[1] == 21)
+        if(player.points == 21)
         {
             return 1;
         }
-        else if (player.amt_points[1] > 21)
+        else if (player.points > 21)
         {
             return 2;
         }

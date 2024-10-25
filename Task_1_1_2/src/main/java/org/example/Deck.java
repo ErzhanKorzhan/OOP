@@ -1,48 +1,53 @@
 package org.example;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Deck {
     public int[] values = {2,3,4,5,6,7,8,9,10,10,10,10,11,1};
     public String[] names = {"Двойка","Тройка","Четверка","Пятерка","Шестерка","Семерка","Восьмерка","Девятка","Десятка","Валет","Дама","Король","Туз"};
     public String[] mast = {"Пики","Бубны","Трефы","Червы"};
-    private final int[] used_cards = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private final List<Integer> queue = new ArrayList<>();
+    private int cnt = 0;
 
-    public void put_card(int[] cards_num, int[] amt_points, boolean check_ace)
-    {
-        Random rnd = new Random();
-        int index = rnd.nextInt(52);
-        while (this.used_cards[index] != 0)
-        {
-            index = rnd.nextInt(52);
+    public void uniqueListGenerator() {
+        for (int i = 0; i < 52; i++) {
+            this.queue.add(i);
         }
-        this.used_cards[index] = 1;
-        amt_points[1] += this.values[index/4];
-        cards_num[amt_points[0]++] = index;
-        check_ace = check_for_ace(amt_points, check_ace);
-        if (check_ace)
+        Collections.shuffle(this.queue); // Перемешиваем числа для случайного порядка
+    }
+
+    public void put_card(Player player)
+    {
+        int val = this.queue.get(this.cnt++);
+        player.points += this.values[val/4];
+        player.cards_num.add(val);
+        player.amt++;
+        player.check_ace = check_for_ace(player.points, player.check_ace);
+        if (player.check_ace)
         {
-            swap_ace(cards_num, amt_points);
+            swap_ace(player);
         }
     }
 
-    public void init_cards(int[] cards_num, int[] amt_points, boolean check_ace)
+    public void init_cards(Player player)
     {
-        put_card(cards_num, amt_points, check_ace);
-        put_card(cards_num, amt_points, check_ace);
+        put_card(player);
+        put_card(player);
     }
 
-    public boolean check_for_ace(int[] amt_points, boolean check) {
-        return (amt_points[1] > 21) || check;
+    public boolean check_for_ace(int points, boolean check) {
+        return (points > 21) || check;
     }
 
-    public void swap_ace(int[] cards_num, int[] amt_points) {
-        for(int i = 0; i < amt_points[0]; ++i)
+    public void swap_ace(Player player) {
+        for(int i = 0; i < player.amt; ++i)
         {
-            if(this.values[cards_num[i]/4]==11)
+            if(this.values[player.cards_num.get(i)/4]==11)
             {
-                cards_num[i] += 4;
-                amt_points[1] -= 10;
+                player.cards_num.set(i, player.cards_num.get(i)+4);
+                player.points -= 10;
             }
         }
     }
@@ -54,33 +59,33 @@ public class Deck {
         return names[num_card/4]+" "+mast[num_card%4]+" ("+values[num_card/4]+")";
     }
 
-    public void print_cards(int[] cards_num_player, int[] amt_points_player, int[] cards_num_dealer, int[] amt_points_dealer, boolean closed)
+    public void print_cards(List<Integer> cards_num_player, int amt_player, int points_player, List<Integer> cards_num_dealer, int amt_dealer, int points_dealer, boolean closed)
     {
         System.out.print("\tВаши карты");
-        out_cards(cards_num_player, amt_points_player);
+        out_cards(cards_num_player, amt_player, points_player);
 
         System.out.print("\tКарты Дилера");
         if (closed)
         {
-            System.out.print(": ["+card_name(cards_num_dealer[0])+", <закрытая карта>]\n");
+            System.out.print(": ["+card_name(cards_num_dealer.getFirst())+", <закрытая карта>]\n");
         }
         else
         {
-            out_cards(cards_num_dealer, amt_points_dealer);
+            out_cards(cards_num_dealer, amt_dealer, points_dealer);
         }
     }
 
-    public void out_cards(int[] cards_num, int[] amt_points)
+    public void out_cards(List<Integer> cards_num, int amt, int points)
     {
         System.out.print(": [");
-        for(int i = 0; i < amt_points[0]; ++i)
+        for(int i = 0; i < amt; ++i)
         {
-            System.out.print(card_name(cards_num[i]));
-            if(i!=amt_points[0]-1)
+            System.out.print(card_name(cards_num.get(i)));
+            if(i!=amt-1)
             {
                 System.out.print(", ");
             }
         }
-        System.out.print("] -> "+amt_points[1]+"\n");
+        System.out.print("] -> "+points+"\n");
     }
 }
