@@ -15,6 +15,7 @@ public class UnitTests
     @Test
     void Add_cards()
     {
+        deck.uniqueListGenerator();
         boolean flag = true;
         pl.check_ace = false;
         pl.points = 0;
