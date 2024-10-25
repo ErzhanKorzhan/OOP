@@ -67,7 +67,7 @@ public class Deck {
         System.out.print("\tКарты Дилера");
         if (closed)
         {
-            System.out.print(": ["+card_name(cards_num_dealer.getFirst())+", <закрытая карта>]\n");
+            System.out.print(": ["+card_name(cards_num_dealer.get(0))+", <закрытая карта>]\n");
         }
         else
         {
