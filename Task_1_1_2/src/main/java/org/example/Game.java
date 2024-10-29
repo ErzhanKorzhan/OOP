@@ -8,7 +8,7 @@ public class Game {
         System.out.print("\nРаунд " + num_round + "\nДилер раздал карты\n");
         deck.init_cards(player);
         deck.init_cards(dealer);
-        deck.print_cards(player.cards_num, player.amt, player.points, dealer.cards_num, dealer.amt, dealer.points, true);
+        deck.print_cards(player, dealer, true);
 
         if (player.check_win(player) == 0)
         {
@@ -19,52 +19,52 @@ public class Game {
         while(player.check_win(player) == 0 && scan.nextInt() != 0)
         {
             deck.put_card(player);
-            System.out.print("\nОткрыта карта "+deck.card_name(player.cards_num.get(player.amt - 1))+"\n");
-            deck.print_cards(player.cards_num, player.amt, player.points, dealer.cards_num, dealer.amt, dealer.points, true);
+            System.out.print("\nОткрыта карта "+deck.card_name(player.getCardNum(player.getCountCards() - 1))+"\n");
+            deck.print_cards(player, dealer, true);
             System.out.print("\nВведите “1”, чтобы взять карту, и “0”, чтобы остановиться...\n");
         }
 
         if (player.check_win(player) == 1)
         {
-            player.amt_wins++;
+            player.setAmtWins(player.getAmtWins() + 1);
             System.out.print("\nВы выиграли раунд! ");
         }
         else if (player.check_win(player) == 2)
         {
-            dealer.amt_wins++;
+            dealer.setAmtWins(dealer.getAmtWins() + 1);
             System.out.print("\nДилер выиграл раунд! ");
         }
         else
         {
             System.out.print("\nХод дилера\n-------\nДилер открывает закрытую карту ");
-            deck.card_name(dealer.cards_num.get(1));
-            deck.print_cards(player.cards_num, player.amt, player.points, dealer.cards_num, dealer.amt, dealer.points, false);
-            while(dealer.check_win(dealer) == 0 && dealer.points < 17)
+            deck.card_name(dealer.getCardNum(1));
+            deck.print_cards(player, dealer, false);
+            while(dealer.check_win(dealer) == 0 && dealer.getPoints() < 17)
             {
                 deck.put_card(dealer);
-                System.out.print("\nОткрыта карта "+deck.card_name(dealer.cards_num.get(dealer.amt-1))+"\n");
-                deck.print_cards(player.cards_num, player.amt, player.points, dealer.cards_num, dealer.amt, dealer.points, false);
+                System.out.print("\nОткрыта карта "+deck.card_name(dealer.getCardNum(dealer.getCountCards() -1))+"\n");
+                deck.print_cards(player, dealer, false);
             }
             if (dealer.check_win(dealer) == 1)
             {
-                dealer.amt_wins++;
+                dealer.setAmtWins(dealer.getAmtWins() + 1);
                 System.out.print("\nДилер выиграл раунд! ");
             }
             else if (dealer.check_win(dealer) == 2)
             {
-                player.amt_wins++;
+                player.setAmtWins(player.getAmtWins() + 1);
                 System.out.print("\nВы выиграли раунд! ");
             }
             else
             {
-                if (player.points > dealer.points)
+                if (player.getPoints() > dealer.getPoints())
                 {
-                    player.amt_wins++;
+                    player.setAmtWins(player.getAmtWins() + 1);
                     System.out.print("\nВы выиграли раунд! ");
                 }
-                else if (dealer.points > player.points)
+                else if (dealer.getPoints() > player.getPoints())
                 {
-                    dealer.amt_wins++;
+                    dealer.setAmtWins(dealer.getAmtWins() + 1);
                     System.out.print("\nДилер выиграл раунд! ");
                 }
                 else
@@ -77,14 +77,14 @@ public class Game {
         player.print_score(player, dealer);
 
         //Putting the cards back into the deck
-        player.points = 0;
-        player.amt = 0;
-        dealer.points = 0;
-        dealer.amt = 0;
-        player.check_ace = false;
-        dealer.check_ace = false;
-        player.cards_num.clear();
-        dealer.cards_num.clear();
+        player.setPoints(0);
+        player.setCountCards(0);
+        dealer.setPoints(0);
+        dealer.setCountCards(0);
+        player.setFlag(false);
+        dealer.setFlag(false);
+        player.cardsClear();
+        dealer.cardsClear();
 
         System.out.print("\nВведите “1”, чтобы начать следующий раунд, и “0”, чтобы закончить игру...\n");
     }

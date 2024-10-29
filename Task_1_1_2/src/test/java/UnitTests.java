@@ -17,9 +17,9 @@ public class UnitTests
     {
         deck.uniqueListGenerator();
         boolean flag = true;
-        pl.check_ace = false;
-        pl.points = 0;
-        pl.amt = 0;
+        pl.setFlag(false);
+        pl.setPoints(0);
+        pl.setCountCards(0);
         int amt = rnd.nextInt(52);
         for (int i = 0; i < amt; ++i)
         {
@@ -27,15 +27,15 @@ public class UnitTests
         }
         for (int i = 0; i < amt; ++i)
         {
-            if(!(pl.cards_num.get(i) < 56 && pl.cards_num.get(i) >= 0))
+            if(!(pl.getCardNum(i) < 56 && pl.getCardNum(i) >= 0))
             {
                 flag = false;
                 break;
             }
         }
-        if (flag && (pl.points >= amt))
+        if (flag && (pl.getPoints() >= amt))
         {
-            assertEquals(pl.amt,amt);
+            assertEquals(pl.getCountCards(),amt);
         }
         else
         {
@@ -46,9 +46,9 @@ public class UnitTests
     @Test
     void Checks_ace()
     {
-        pl.points = 22;
-        pl.check_ace = deck.check_for_ace(pl.points, false);
-        assertTrue(pl.check_ace);
+        pl.setPoints(22);
+        pl.setFlag(deck.check_for_ace(pl.getPoints(), false));
+        assertTrue(pl.getFlag());
     }
 
     @Test
@@ -60,14 +60,14 @@ public class UnitTests
     @Test
     void Win_check()
     {
-        pl.points = 21;
+        pl.setPoints(21);
         assertEquals(pl.check_win(pl),1);
     }
 
     @Test
     void Loss_check()
     {
-        pl.points = 23;
+        pl.setPoints(23);
         assertEquals(pl.check_win(pl),2);
     }
 }
