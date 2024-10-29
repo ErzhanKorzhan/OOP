@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -138,49 +138,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#amt">amt</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#amt_wins">amt_wins</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>java.util.List&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cards_num">cards_num</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#check_ace">check_ace</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#points">points</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -217,14 +174,75 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cardsClear()">cardsClear</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#check_win(org.example.Player)">check_win</a></span>&#8203;(<a href="Player.html" title="class in org.example">Player</a>&nbsp;player)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAmtWins()">getAmtWins</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCardNum(int)">getCardNum</a></span>&#8203;(int&nbsp;id)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCountCards()">getCountCards</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFlag()">getFlag</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNewCard(int)">getNewCard</a></span>&#8203;(int&nbsp;val)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPoints()">getPoints</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#print_score(org.example.Player,org.example.Player)">print_score</a></span>&#8203;(<a href="Player.html" title="class in org.example">Player</a>&nbsp;player,
            <a href="Player.html" title="class in org.example">Player</a>&nbsp;dealer)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAmtWins(int)">setAmtWins</a></span>&#8203;(int&nbsp;val)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCardNum(int,int)">setCardNum</a></span>&#8203;(int&nbsp;id,
+          int&nbsp;val)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCountCards(int)">setCountCards</a></span>&#8203;(int&nbsp;val)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setFlag(boolean)">setFlag</a></span>&#8203;(boolean&nbsp;val)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPoints(int)">setPoints</a></span>&#8203;(int&nbsp;val)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -244,61 +262,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="amt">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>amt</h4>
-<pre>public&nbsp;int amt</pre>
-</li>
-</ul>
-<a id="points">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>points</h4>
-<pre>public&nbsp;int points</pre>
-</li>
-</ul>
-<a id="cards_num">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>cards_num</h4>
-<pre>public&nbsp;java.util.List&lt;java.lang.Integer&gt; cards_num</pre>
-</li>
-</ul>
-<a id="check_ace">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>check_ace</h4>
-<pre>public&nbsp;boolean check_ace</pre>
-</li>
-</ul>
-<a id="amt_wins">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>amt_wins</h4>
-<pre>public&nbsp;int amt_wins</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section>
 <ul class="blockList">
@@ -325,6 +288,115 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="setCountCards(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCountCards</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCountCards&#8203;(int&nbsp;val)</pre>
+</li>
+</ul>
+<a id="setPoints(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPoints</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPoints&#8203;(int&nbsp;val)</pre>
+</li>
+</ul>
+<a id="setAmtWins(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAmtWins</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAmtWins&#8203;(int&nbsp;val)</pre>
+</li>
+</ul>
+<a id="getAmtWins()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAmtWins</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getAmtWins()</pre>
+</li>
+</ul>
+<a id="setFlag(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFlag</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setFlag&#8203;(boolean&nbsp;val)</pre>
+</li>
+</ul>
+<a id="getCardNum(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCardNum</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getCardNum&#8203;(int&nbsp;id)</pre>
+</li>
+</ul>
+<a id="setCardNum(int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCardNum</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCardNum&#8203;(int&nbsp;id,
+                       int&nbsp;val)</pre>
+</li>
+</ul>
+<a id="getNewCard(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNewCard</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;getNewCard&#8203;(int&nbsp;val)</pre>
+</li>
+</ul>
+<a id="cardsClear()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>cardsClear</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;cardsClear()</pre>
+</li>
+</ul>
+<a id="getCountCards()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCountCards</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getCountCards()</pre>
+</li>
+</ul>
+<a id="getPoints()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPoints</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getPoints()</pre>
+</li>
+</ul>
+<a id="getFlag()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFlag</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getFlag()</pre>
+</li>
+</ul>
 <a id="print_score(org.example.Player,org.example.Player)">
 <!--   -->
 </a>
@@ -395,13 +467,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

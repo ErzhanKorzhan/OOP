@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -138,39 +138,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>java.lang.String[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mast">mast</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>java.lang.String[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#names">names</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>int[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#values">values</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -224,19 +191,13 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#out_cards(java.util.List,int,int)">out_cards</a></span>&#8203;(java.util.List&lt;java.lang.Integer&gt;&nbsp;cards_num,
-         int&nbsp;amt,
-         int&nbsp;points)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#out_cards(org.example.Player)">out_cards</a></span>&#8203;(<a href="Player.html" title="class in org.example">Player</a>&nbsp;pl)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#print_cards(java.util.List,int,int,java.util.List,int,int,boolean)">print_cards</a></span>&#8203;(java.util.List&lt;java.lang.Integer&gt;&nbsp;cards_num_player,
-           int&nbsp;amt_player,
-           int&nbsp;points_player,
-           java.util.List&lt;java.lang.Integer&gt;&nbsp;cards_num_dealer,
-           int&nbsp;amt_dealer,
-           int&nbsp;points_dealer,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#print_cards(org.example.Player,org.example.Player,boolean)">print_cards</a></span>&#8203;(<a href="Player.html" title="class in org.example">Player</a>&nbsp;player,
+           <a href="Player.html" title="class in org.example">Player</a>&nbsp;dealer,
            boolean&nbsp;closed)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -272,43 +233,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="values">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>values</h4>
-<pre>public&nbsp;int[] values</pre>
-</li>
-</ul>
-<a id="names">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>names</h4>
-<pre>public&nbsp;java.lang.String[] names</pre>
-</li>
-</ul>
-<a id="mast">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>mast</h4>
-<pre>public&nbsp;java.lang.String[] mast</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section>
 <ul class="blockList">
@@ -390,30 +314,24 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;card_name&#8203;(int&nbsp;num_card)</pre>
 </li>
 </ul>
-<a id="print_cards(java.util.List,int,int,java.util.List,int,int,boolean)">
+<a id="print_cards(org.example.Player,org.example.Player,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>print_cards</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;print_cards&#8203;(java.util.List&lt;java.lang.Integer&gt;&nbsp;cards_num_player,
-                        int&nbsp;amt_player,
-                        int&nbsp;points_player,
-                        java.util.List&lt;java.lang.Integer&gt;&nbsp;cards_num_dealer,
-                        int&nbsp;amt_dealer,
-                        int&nbsp;points_dealer,
+<pre class="methodSignature">public&nbsp;void&nbsp;print_cards&#8203;(<a href="Player.html" title="class in org.example">Player</a>&nbsp;player,
+                        <a href="Player.html" title="class in org.example">Player</a>&nbsp;dealer,
                         boolean&nbsp;closed)</pre>
 </li>
 </ul>
-<a id="out_cards(java.util.List,int,int)">
+<a id="out_cards(org.example.Player)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>out_cards</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;out_cards&#8203;(java.util.List&lt;java.lang.Integer&gt;&nbsp;cards_num,
-                      int&nbsp;amt,
-                      int&nbsp;points)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;out_cards&#8203;(<a href="Player.html" title="class in org.example">Player</a>&nbsp;pl)</pre>
 </li>
 </ul>
 </li>
@@ -467,13 +385,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
