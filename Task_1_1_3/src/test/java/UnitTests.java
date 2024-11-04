@@ -1,5 +1,7 @@
-import org.example.*;
-import org.example.Number;
+import org.example.Expression;
+import org.example.ExpressionParser;
+import org.expr.*;
+import org.expr.Number;
 import org.junit.jupiter.api.Test;
 
 public class UnitTests
@@ -29,8 +31,8 @@ public class UnitTests
     @Test
     void DerivativeTest()
     {
-        Expression expr = ExpressionParser.parse("x + 7*y + 3 - 71");
-        assert expr.derivative("y").simplify().equals(new Number(7));
+        Expression expr = ExpressionParser.parse("x + y*y + 3*y - 71");
+        assert expr.derivative("y").simplify().equals(new Add(new Add(new Variable("y"), new Variable("y")), new Number(3)));
     }
 
     @Test

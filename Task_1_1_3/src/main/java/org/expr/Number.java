@@ -1,4 +1,6 @@
-package org.example;
+package org.expr;
+
+import org.example.Expression;
 
 public class Number extends Expression {
     private final int value;

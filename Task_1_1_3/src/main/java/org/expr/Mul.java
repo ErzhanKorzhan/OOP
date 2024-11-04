@@ -1,4 +1,6 @@
-package org.example;
+package org.expr;
+
+import org.example.Expression;
 
 public class Mul extends Expression {
     private final Expression left;

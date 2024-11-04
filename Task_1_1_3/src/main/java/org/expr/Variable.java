@@ -1,4 +1,6 @@
-package org.example;
+package org.expr;
+
+import org.example.Expression;
 
 public class Variable extends Expression {
     private final String name;

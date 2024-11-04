@@ -1,5 +1,8 @@
 package org.example;
 
+import org.expr.*;
+import org.expr.Number;
+
 public class ExpressionParser {
     private static int pos; // Текущая позиция в строке
     private static String input; // Входная строка для разбора
