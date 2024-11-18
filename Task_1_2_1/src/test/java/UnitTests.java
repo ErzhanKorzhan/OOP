@@ -196,25 +196,23 @@ public class UnitTests
     {
         Graph gr1 = new AdjacencyMatrixGraph();
         gr1.readFromFile("fl.txt");
-        assert gr1.toString().equals("""
-                                     Vertices: [ver3, ver1, ver2]
-                                     Adjacency Matrix:
-                                     [0, 0, 0]
-                                     [1, 0, 0]
-                                     [0, 1, 0]""");
+        assert gr1.toString().equals("Vertices: [ver3, ver1, ver2]\n" +
+                                     "Adjacency Matrix:\n" +
+                                     "[0, 0, 0]\n" +
+                                     "[1, 0, 0]\n" +
+                                     "[0, 1, 0]");
     }
 
     @Test
     void IncMatrixStringTest()
     {
-        Graph gr1 = new AdjacencyMatrixGraph();
+        Graph gr1 = new IncidenceMatrixGraph();
         gr1.readFromFile("fl.txt");
-        assert gr1.toString().equals("""
-                                     Vertices: [ver3, ver1, ver2]
-                                     Adjacency Matrix:
-                                     [0, 0, 0]
-                                     [1, 0, 0]
-                                     [0, 1, 0]""");
+        assert gr1.toString().equals("Vertices: [ver3, ver1, ver2]\n" +
+                                     "Incidence Matrix:\n" +
+                                     "[0, -1]\n" +
+                                     "[-1, 1]\n" +
+                                     "[1, 0]");
     }
 
     @Test
