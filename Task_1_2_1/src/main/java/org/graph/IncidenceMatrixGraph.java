@@ -1,5 +1,6 @@
-package org.example;
+package org.graph;
 
+import org.example.Graph;
 import java.io.File;
 import java.util.*;
 
@@ -23,54 +24,39 @@ public class IncidenceMatrixGraph implements Graph {
 
     @Override
     public void removeVertex(String vertex) {
-        int vertexIndex = vertices.indexOf(vertex);
-        if (vertexIndex != -1) {
-            vertices.remove(vertexIndex);
-            incidenceMatrix.remove(vertexIndex);
-        }
+        incidenceMatrix.remove(vertices.indexOf(vertex));
+        vertices.remove(vertex);
     }
 
     @Override
     public void addEdge(String u, String v) {
-        int uIndex = vertices.indexOf(u);
-        int vIndex = vertices.indexOf(v);
-        if (uIndex != -1 || vIndex != -1) {
-            for (List<Integer> row : incidenceMatrix) {
-                row.add(0);
-            }
-            incidenceMatrix.get(uIndex).set(edgeCount, 1);
-            incidenceMatrix.get(vIndex).set(edgeCount, -1);
-            edgeCount++;
+        for (List<Integer> row : incidenceMatrix) {
+            row.add(0);
         }
+        incidenceMatrix.get(vertices.indexOf(u)).set(edgeCount, 1);
+        incidenceMatrix.get(vertices.indexOf(v)).set(edgeCount, -1);
+        edgeCount++;
     }
 
     @Override
     public void removeEdge(String u, String v) {
-        int uIndex = vertices.indexOf(u);
-        int vIndex = vertices.indexOf(v);
-        if (uIndex != -1 || vIndex != -1) {
-            int edgeIndex = -1;
-            for (int j = 0; j < edgeCount; j++) {
-                if (incidenceMatrix.get(uIndex).get(j) == 1 && incidenceMatrix.get(vIndex).get(j) == -1) {
-                    edgeIndex = j;
-                    break;
-                }
-            }
-            if (edgeIndex != -1) {
+        int indexU = vertices.indexOf(u);
+        int indexV = vertices.indexOf(v);
+        for (int j = 0; j < edgeCount; j++) {
+            if (incidenceMatrix.get(indexU).get(j) == 1 && incidenceMatrix.get(indexV).get(j) == -1) {
                 edgeCount--;
                 for (List<Integer> row : incidenceMatrix) {
-                    row.remove(edgeIndex);
+                    row.remove(j);
                 }
+                break;
             }
         }
     }
 
     @Override
     public List<String> getNeighbors(String vertex) {
-        int index = vertices.indexOf(vertex);
-        if (index == -1) return Collections.emptyList();
-
         List<String> neighbors = new ArrayList<>();
+        int index = vertices.indexOf(vertex);
         for (int j = 0; j < edgeCount; j++) {
             if (incidenceMatrix.get(index).get(j) == 1) {
                 for (int i = 0; i < vertices.size(); i++) {
@@ -85,9 +71,6 @@ public class IncidenceMatrixGraph implements Graph {
 
     @Override
     public void readFromFile(String filename) {
-        // Для простоты возьму, что файл имеет формат:
-        // v <vertex_name> для добавления вершины
-        // e <vertex1> <vertex2> для добавления ребра
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -104,18 +87,23 @@ public class IncidenceMatrixGraph implements Graph {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof IncidenceMatrixGraph)) return false;
-        return vertices.equals(((IncidenceMatrixGraph) o).vertices) && incidenceMatrix.equals(((IncidenceMatrixGraph) o).incidenceMatrix);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return vertices.equals(((IncidenceMatrixGraph) obj).vertices) && incidenceMatrix.equals(((IncidenceMatrixGraph) obj).incidenceMatrix);
     }
 
     @Override
-    public void print_gr() {
-        System.out.println("Vertices: " + vertices);
-        System.out.println("Incidence Matrix:");
+    public String toString() {
+        StringBuilder str = new StringBuilder();
         for (List<Integer> row : incidenceMatrix) {
-            System.out.println(row.toString());
+            str.append("\n").append(row);
         }
+        return "Vertices: " + vertices + "\nIncidence Matrix:" + str;
     }
 
     @Override
@@ -126,21 +114,12 @@ public class IncidenceMatrixGraph implements Graph {
         }
 
         for (int edge = 0; edge < edgeCount; edge++) {
-            int fromIndex = -1;
-            int toIndex = -1;
-
             for (int vertexIndex = 0; vertexIndex < vertices.size(); vertexIndex++) {
-                int value = incidenceMatrix.get(vertexIndex).get(edge);
-                if (value == 1) {
-                    fromIndex = vertexIndex;
-                } else if (value == -1) {
-                    toIndex = vertexIndex;
+                if (incidenceMatrix.get(vertexIndex).get(edge) == -1) {
+                    String toVertex = vertices.get(vertexIndex);
+                    inDegree.put(toVertex, inDegree.get(toVertex) + 1);
+                    break;
                 }
-            }
-
-            if (toIndex != -1) {
-                String toVertex = vertices.get(toIndex);
-                inDegree.put(toVertex, inDegree.get(toVertex) + 1);
             }
         }
 
@@ -155,19 +134,17 @@ public class IncidenceMatrixGraph implements Graph {
         while (!queue.isEmpty()) {
             String current = queue.poll();
             sortedList.add(current);
-
             int currentIndex = vertices.indexOf(current);
-
             for (int edge = 0; edge < edgeCount; edge++) {
                 if (incidenceMatrix.get(currentIndex).get(edge) == 1) {
                     for (int toIndex = 0; toIndex < vertices.size(); toIndex++) {
                         if (incidenceMatrix.get(toIndex).get(edge) == -1) {
                             String toVertex = vertices.get(toIndex);
-
                             inDegree.put(toVertex, inDegree.get(toVertex) - 1);
                             if (inDegree.get(toVertex) == 0) {
                                 queue.add(toVertex);
                             }
+                            break;
                         }
                     }
                 }

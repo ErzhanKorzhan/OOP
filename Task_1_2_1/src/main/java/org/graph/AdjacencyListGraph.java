@@ -1,5 +1,6 @@
-package org.example;
+package org.graph;
 
+import org.example.Graph;
 import java.io.File;
 import java.util.*;
 
@@ -38,9 +39,6 @@ public class AdjacencyListGraph implements Graph {
 
     @Override
     public void readFromFile(String filename) {
-        // Для простоты возьму, что файл имеет формат:
-        // v <vertex_name> для добавления вершины
-        // e <vertex1> <vertex2> для добавления ребра
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -57,14 +55,19 @@ public class AdjacencyListGraph implements Graph {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof AdjacencyListGraph)) return false;
-        return adjList.equals(((AdjacencyListGraph) o).adjList);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return adjList.equals(((AdjacencyListGraph) obj).adjList);
     }
 
     @Override
-    public void print_gr() {
-        System.out.println("Adjacency List: " + adjList);
+    public String toString() {
+        return "Adjacency List: " + adjList;
     }
 
     @Override

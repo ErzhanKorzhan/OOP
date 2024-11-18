@@ -1,73 +1,54 @@
-package org.example;
+package org.graph;
 
+import org.example.Graph;
 import java.io.File;
 import java.util.*;
 
 public class AdjacencyMatrixGraph implements Graph {
     private final List<String> vertices;
-    private int[][] adjMatrix;
+    private final List<List<Integer>> adjMatrix;
 
     public AdjacencyMatrixGraph() {
         this.vertices = new ArrayList<>();
-        this.adjMatrix = new int[0][0];
+        this.adjMatrix = new ArrayList<>();
     }
 
     @Override
     public void addVertex(String vertex) {
         vertices.add(vertex);
-        int[][] newMatrix = new int[vertices.size()][vertices.size()];
-        for (int i = 0; i < adjMatrix.length; i++) {
-            System.arraycopy(adjMatrix[i], 0, newMatrix[i], 0, adjMatrix.length);
+        for (List<Integer> row : adjMatrix) {
+            row.add(0);
         }
-        adjMatrix = newMatrix;
+        adjMatrix.add(new ArrayList<>(Collections.nCopies(vertices.size(), 0)));
     }
 
     @Override
     public void removeVertex(String vertex) {
-        int id = vertices.indexOf(vertex);
-        if (id != -1) {
-            vertices.remove(id);
-            int[][] newMatrix = new int[vertices.size()][vertices.size()];
-            for (int i = 0, I = 0; i < adjMatrix.length; i++) {
-                if (i == id) continue;
-                for (int j = 0, J = 0; j < adjMatrix.length; j++) {
-                    if (j == id) continue;
-                    newMatrix[I][J] = adjMatrix[i][j];
-                    J++;
-                }
-                I++;
-            }
-            adjMatrix = newMatrix;
+        int index = vertices.indexOf(vertex);
+        adjMatrix.remove(index);
+        for (List<Integer> row : adjMatrix) {
+            row.remove(index);
         }
+        vertices.remove(index);
     }
 
     @Override
     public void addEdge(String u, String v) {
-        int uIndex = vertices.indexOf(u);
-        int vIndex = vertices.indexOf(v);
-        if (uIndex != -1 && vIndex != -1) {
-            adjMatrix[uIndex][vIndex] = 1;
-        }
+        adjMatrix.get(vertices.indexOf(u)).set(vertices.indexOf(v), 1);
     }
 
     @Override
     public void removeEdge(String u, String v) {
-        int uIndex = vertices.indexOf(u);
-        int vIndex = vertices.indexOf(v);
-        if (uIndex != -1 && vIndex != -1) {
-            adjMatrix[uIndex][vIndex] = 0;
-        }
+        adjMatrix.get(vertices.indexOf(u)).set(vertices.indexOf(v), 0);
     }
 
     @Override
     public List<String> getNeighbors(String vertex) {
         int index = vertices.indexOf(vertex);
         List<String> neighbors = new ArrayList<>();
-        if (index != -1) {
-            for (int i = 0; i < vertices.size(); i++) {
-                if (adjMatrix[index][i] == 1) {
-                    neighbors.add(vertices.get(i));
-                }
+        for (int i = 0; i < vertices.size(); i++) {
+            if (adjMatrix.get(index).get(i) == 1) {
+                neighbors.add(vertices.get(i));
             }
         }
         return neighbors;
@@ -75,9 +56,6 @@ public class AdjacencyMatrixGraph implements Graph {
 
     @Override
     public void readFromFile(String filename) {
-        // Для простоты возьму, что файл имеет формат:
-        // v <vertex_name> для добавления вершины
-        // e <vertex1> <vertex2> для добавления ребра
         try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -94,18 +72,23 @@ public class AdjacencyMatrixGraph implements Graph {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof AdjacencyMatrixGraph)) return false;
-        return vertices.equals(((AdjacencyMatrixGraph) o).vertices) && Arrays.deepEquals(adjMatrix, ((AdjacencyMatrixGraph) o).adjMatrix);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return vertices.equals(((AdjacencyMatrixGraph) obj).vertices) && adjMatrix.equals(((AdjacencyMatrixGraph) obj).adjMatrix);
     }
 
     @Override
-    public void print_gr() {
-        System.out.println("Vertices: "+vertices);
-        System.out.println("Adjacency Matrix:");
-        for (int[] row : adjMatrix) {
-            System.out.println(Arrays.toString(row));
+    public String toString() {
+        StringBuilder tmp = new StringBuilder();
+        for (List<Integer> row : adjMatrix) {
+            tmp.append("\n").append(row);
         }
+        return "Vertices: " + vertices + "\nAdjacency Matrix:" + tmp;
     }
 
     @Override
@@ -115,9 +98,9 @@ public class AdjacencyMatrixGraph implements Graph {
             inDegree.put(vertex, 0);
         }
 
-        for (int[] matrix : adjMatrix) {
-            for (int j = 0; j < adjMatrix.length; j++) {
-                if (matrix[j] == 1) {
+        for (List<Integer> matrix : adjMatrix) {
+            for (int j = 0; j < matrix.size(); j++) {
+                if (matrix.get(j) == 1) {
                     String neighbor = vertices.get(j);
                     inDegree.put(neighbor, inDegree.get(neighbor) + 1);
                 }
@@ -135,10 +118,9 @@ public class AdjacencyMatrixGraph implements Graph {
         while (!queue.isEmpty()) {
             String current = queue.poll();
             sortedList.add(current);
-
             int currentIndex = vertices.indexOf(current);
-            for (int i = 0; i < adjMatrix.length; i++) {
-                if (adjMatrix[currentIndex][i] == 1) {
+            for (int i = 0; i < adjMatrix.get(currentIndex).size(); i++) {
+                if (adjMatrix.get(currentIndex).get(i) == 1) {
                     String neighbor = vertices.get(i);
                     inDegree.put(neighbor, inDegree.get(neighbor) - 1);
                     if (inDegree.get(neighbor) == 0) {

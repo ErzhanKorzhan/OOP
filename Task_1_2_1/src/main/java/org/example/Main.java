@@ -1,13 +1,11 @@
 package org.example;
 
-import java.util.List;
+import org.graph.AdjacencyMatrixGraph;
 
 public class Main {
     public static void main(String[] args) {
-        Graph gr = new IncidenceMatrixGraph();
+        Graph gr = new AdjacencyMatrixGraph();
         gr.readFromFile("fl.txt");
-        gr.print_gr();
-        List<String> a = gr.topologicalSort();
-        System.out.println(a);
+        System.out.println(gr);
     }
 }
