@@ -1,6 +1,8 @@
 package org.graph;
 
 import org.example.Graph;
+import org.example.GraphException;
+
 import java.io.File;
 import java.util.*;
 
@@ -131,7 +133,7 @@ public class AdjacencyMatrixGraph implements Graph {
         }
 
         if (sortedList.size() != vertices.size()) {
-            throw new RuntimeException("The graph has a cycle");
+            throw new GraphException("The graph has a cycle");
         }
 
         return sortedList;
