@@ -5,9 +5,9 @@ import java.util.List;
 
 // Класс для зачетной книжки
 public class StudentGradeBook {
-    private final String name; // Имя студента
-    private final boolean isPaidForm; // true - платная форма, false - бюджетная
-    private final List<Grade> grades; // Список всех оценок
+    private final String name;
+    private final boolean isPaidForm;
+    private final List<Grade> grades;
 
     public StudentGradeBook(String name, boolean isPaidForm) {
         this.name = name;
@@ -15,95 +15,80 @@ public class StudentGradeBook {
         this.grades = new ArrayList<>();
     }
 
-    // Добавление оценки
-    public void addGrade(String subject, String type, int grade, int semester) {
-        grades.add(new Grade(subject, type, grade, semester));
+    public void addGrade(String subject, String type, int grade, int semester_num) {
+        if (semester_num < 1 || semester_num > 8) {
+            throw new IllegalArgumentException("Номер семестра должен быть в диапазоне от 2 до 5");
+        }
+        if (grade < 2 || grade > 5) {
+            throw new IllegalArgumentException("Оценка должна быть в диапазоне от 2 до 5");
+        }
+        grades.add(new Grade(subject, type, grade, semester_num));
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Зачетная книжка студента: ").append(name).append("\n");
-        sb.append("Форма обучения: ").append(isPaidForm ? "Платная" : "Бюджетная").append("\n");
-        sb.append("----------------------------------------------------------\n");
-        sb.append(String.format("%-15s %-20s %-10s %-10s%n", "Предмет", "Тип контроля", "Семестр", "Оценка"));
-        sb.append("----------------------------------------------------------\n");
-
-        for (Grade grade : grades) {
-            sb.append(String.format("%-15s %-20s %-10d %-10d%n",
-                    grade.getSubject(), grade.getType(), grade.getSemester(), grade.getGrade()));
+        int subject_len = 21;
+        int type_len = 12;
+        for (Grade grade :grades){
+            subject_len = Math.max(subject_len, grade.subject().replace(" ", "  ").length()/2);
+            type_len = Math.max(type_len, grade.type().replace(" ", "  ").length()/2);
         }
-
-        sb.append("----------------------------------------------------------\n");
-        sb.append(String.format("Средний балл: %.2f%n", calculateAverageGrade()));
-        sb.append("Перевод на бюджет: ").append(isPaidForm ? (canTransferToBudget() ? "Да" : "Нет") : "Уже на бюджете").append("\n");
-        sb.append("Красный диплом: ").append(canGetRedDiploma() ? "Да" : "Нет").append("\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Зачетная книжка студента:    ").append(name).append("\n");
+        sb.append("Форма обучения:              ").append(isPaidForm ? "Платная" : "Бюджетная").append("\n");
+        sb.append("-".repeat(subject_len + type_len + 28)).append('\n');
+        sb.append(String.format("%s%s    %s%s    %s    %s\n", "Предмет", " ".repeat(subject_len - 7), "Вид контроля", " ".repeat(type_len - 12), "Семестр", "Оценка"));
+        sb.append("-".repeat(subject_len + type_len + 28)).append('\n');
+        for (Grade grade : grades) {
+            sb.append(String.format("%s%s    %s%s       %d          %d\n", grade.subject(), " ".repeat(subject_len - grade.subject().replace(" ", "  ").length()/2), grade.type(), " ".repeat(type_len - grade.type().replace(" ", "  ").length()/2), grade.semester_num(), grade.grade()));
+        }
+        sb.append("-".repeat(subject_len + type_len + 28)).append('\n');
+        sb.append(String.format("Средний балл:%s%.2f%n", " ".repeat(subject_len - 9), AverageGrade()));
+        sb.append("Перевод на бюджет:").append(" ".repeat(subject_len - 14)).append(isPaidForm ? (canTransferToBudget() ? "Да" : "Нет") : "Уже на бюджете").append("\n");
+        sb.append("Красный диплом:").append(" ".repeat(subject_len - 11)).append(canGetRedDiploma() ? "Да" : "Нет").append("\n");
+        sb.append("Повышенная стипендия:").append(" ".repeat(subject_len - 17)).append(canGetIncreasedScholarship() ? "Да" : "Нет").append("\n");
         return sb.toString();
     }
 
-
-    // 1. Вычисление среднего балла
-    public double calculateAverageGrade() {
-        if (grades.isEmpty()) return 0.0;
-        int total = 0;
+    public double AverageGrade() {
+        if (grades.isEmpty()) return 0;
+        double total = 0;
         for (Grade grade : grades) {
-            total += grade.getGrade();
+            total += grade.grade();
         }
         return total / (double) grades.size();
     }
 
-    // 2. Возможность перевода на бюджет
     public boolean canTransferToBudget() {
-        if (!isPaidForm) return false;
-
-        int satisfactoryCount = 0;
-
-        // Проверяем оценки за последние два семестра
-        int lastSemester = grades.stream().mapToInt(Grade::getSemester).max().orElse(0);
+        int currentSemester = grades.stream().mapToInt(Grade::semester_num).max().orElse(0);
         for (Grade grade : grades) {
-            if (grade.getSemester() >= lastSemester - 1 && grade.getGrade() == 3) {
-                satisfactoryCount++;
+            if (grade.semester_num() >= currentSemester - 1 && ((grade.type().equals("Экзамен") && grade.grade() <= 3) || (grade.type().equals("Дифференцированный зачет") && grade.grade() <= 2))) {
+                return false;
             }
         }
-
-        return satisfactoryCount == 0;
+        return isPaidForm;
     }
 
-    // 3. Возможность получить красный диплом
     public boolean canGetRedDiploma() {
-        int excellentCount = 0;
-        int totalGrades = 0;
-
+        double cnt_excellent_grade = 0;
         for (Grade grade : grades) {
-            if ("qualification work".equals(grade.getType()) && grade.getGrade() != 5) {
-                return false; // Дипломная работа не на "отлично"
+            if ((grade.type().equals("Защита ВКР") && grade.grade() != 5) || grade.grade() <= 3) {
+                return false;
             }
-            if (grade.getGrade() == 3) {
-                return false; // Есть "удовлетворительно"
+            if (grade.grade() == 5) {
+                cnt_excellent_grade++;
             }
-            totalGrades++;
-            if (grade.getGrade() == 5) excellentCount++;
         }
-
-        // Проверяем, что >= 75% оценок "отлично"
-        return totalGrades > 0 && (excellentCount / (double) totalGrades) >= 0.75;
+        return cnt_excellent_grade / grades.size() >= 0.75;
     }
 
-    // 4. Возможность получения повышенной стипендии
-    public boolean canGetIncreasedScholarship(int currentSemester) {
-        int satisfactoryCount = 0;
-        int excellentCount = 0;
-
-        // Проверяем оценки текущего семестра
+    public boolean canGetIncreasedScholarship() {
+        int currentSemester = grades.stream().mapToInt(Grade::semester_num).max().orElse(0);
         for (Grade grade : grades) {
-            if (grade.getSemester() == currentSemester) {
-                if (grade.getGrade() == 3) satisfactoryCount++;
-                if (grade.getGrade() == 5) excellentCount++;
+            if (grade.semester_num() == currentSemester && grade.grade() <= 3) {
+                return false;
             }
         }
-
-        // Нет "удовлетворительных" и хотя бы одна "отлично"
-        return satisfactoryCount == 0 && excellentCount > 0;
+        return true;
     }
 }
-

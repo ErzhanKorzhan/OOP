@@ -1,23 +1,67 @@
+import org.example.StudentGradeBook;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import java.util.Random;
-import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTests
 {
-    Random rnd = new Random();
+    @Test
+    public void CanTransferToBudgeTest() {
+        StudentGradeBook student = new StudentGradeBook("Тиван Тиванов Тиванович", true);
+        student.addGrade("Матанализ", "Экзамен", 5, 4);
+        student.addGrade("Модели вычислений", "Дифференцированный зачет", 3, 3);
+        assertTrue(student.canTransferToBudget());
+        student.addGrade("ООП", "Экзамен", 3, 4);
+        assertFalse(student.canTransferToBudget());
+    }
 
     @Test
-    void OneElem()
-    {
-        int len = 1;
-        int[] arr = new int[len];
-        for (int i = 0; i < len; ++i)
-        {
-            arr[i] = rnd.nextInt();
-        }
-        int[] out = arr.clone();
-        Arrays.sort(arr);
-        assertArrayEquals(arr, out);
+    public void CanGetRedDiplomaTest() {
+        StudentGradeBook student = new StudentGradeBook("Тиван Тиванов Тиванович", true);
+        student.addGrade("ОСи", "Экзамен", 5, 4);
+        student.addGrade("ООП", "Экзамен", 5, 4);
+        assertTrue(student.canGetRedDiploma());
+        student.addGrade("Модели вычислений", "Дифференцированный зачет", 4, 3);
+        assertFalse(student.canGetRedDiploma());
+    }
+
+    @Test
+    public void CanGetIncreasedScholarshipTest() {
+        StudentGradeBook student = new StudentGradeBook("Сиван Сиванов Сиванович", true);
+        student.addGrade("Модели вычислений", "Дифференцированный зачет", 4, 3);
+        student.addGrade("ООП", "Дифференцированный зачет", 4, 3);
+        assertTrue(student.canGetIncreasedScholarship());
+        student.addGrade("Матанализ", "Дифференцированный зачет", 3, 3);
+        assertFalse(student.canGetIncreasedScholarship());
+    }
+
+    @Test
+    public void ToStringTest() {
+        StudentGradeBook student = new StudentGradeBook("Диван Диванов Диванович", true);
+        student.addGrade("Матанализ", "Экзамен", 5, 3);
+        student.addGrade("ОСи", "Экзамен", 4, 4);
+        student.addGrade("ООП", "Экзамен", 3, 4);
+        student.addGrade("Модели вычислений", "Дифференцированный зачет", 5, 3);
+        student.addGrade("ООП", "Защита ВКР", 4, 8);
+        String res = student.toString();
+        assertTrue(res.contains("Зачетная книжка студента:    Диван Диванов Диванович"));
+        assertTrue(res.contains("Форма обучения:              Платная"));
+        assertTrue(res.contains("Матанализ                Экзамен                        3          5"));
+        assertTrue(res.contains("ОСи                      Экзамен                        4          4"));
+        assertTrue(res.contains("ООП                      Экзамен                        4          3"));
+        assertTrue(res.contains("Модели вычислений        Дифференцированный зачет       3          5"));
+        assertTrue(res.contains("ООП                      Защита ВКР                     8          4"));
+        assertTrue(res.contains("Средний балл:            4,20"));
+        assertTrue(res.contains("Перевод на бюджет:       Да"));
+        assertTrue(res.contains("Красный диплом:          Нет"));
+        assertTrue(res.contains("Повышенная стипендия:    Да"));
+    }
+
+    @Test
+    public void AverageGradeTest() {
+        StudentGradeBook student = new StudentGradeBook("Биван Биванов Биванович", true);
+        student.addGrade("Матанализ", "Экзамен", 5, 3);
+        student.addGrade("ОСи", "Экзамен", 4, 4);
+        assertEquals(4.5, student.AverageGrade());
     }
 }
