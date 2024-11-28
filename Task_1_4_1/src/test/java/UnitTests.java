@@ -1,3 +1,4 @@
+import org.example.Grade;
 import org.example.StudentGradeBook;
 import org.junit.jupiter.api.Test;
 
@@ -55,6 +56,12 @@ public class UnitTests
         assertTrue(res.contains("Перевод на бюджет:       Да"));
         assertTrue(res.contains("Красный диплом:          Нет"));
         assertTrue(res.contains("Повышенная стипендия:    Да"));
+    }
+
+    @Test
+    public void GradeToStringTest() {
+        Grade grade = new Grade("Матанализ", "Экзамен", 5, 3);
+        assert grade.toString().equals("Предмет: Матанализ    Тип: Экзамен    Семестр: 3    Оценка: 5");
     }
 
     @Test
