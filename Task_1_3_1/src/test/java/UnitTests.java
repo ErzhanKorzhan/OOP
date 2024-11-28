@@ -18,7 +18,7 @@ public class UnitTests
 
     @Test
     public void FifteenCharsTest() {
-        List<Integer> indices = FileSubstringSearch.find("input.txt", "абра");
+        List<Integer> indices = FileSubstringSearch.find("input.txt", "abra");
         assert indices.size() == 2;
         assertTrue(indices.contains(0));
         assertTrue(indices.contains(8));
