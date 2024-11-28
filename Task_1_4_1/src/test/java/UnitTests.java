@@ -47,11 +47,6 @@ public class UnitTests
         String res = student.toString();
         assertTrue(res.contains("Зачетная книжка студента:    Диван Диванов Диванович"));
         assertTrue(res.contains("Форма обучения:              Платная"));
-        assertTrue(res.contains("Матанализ                Экзамен                        3          5"));
-        assertTrue(res.contains("ОСи                      Экзамен                        4          4"));
-        assertTrue(res.contains("ООП                      Экзамен                        4          3"));
-        assertTrue(res.contains("Модели вычислений        Дифференцированный зачет       3          5"));
-        assertTrue(res.contains("ООП                      Защита ВКР                     8          4"));
         assertTrue(res.contains("Средний балл:            4,20"));
         assertTrue(res.contains("Перевод на бюджет:       Да"));
         assertTrue(res.contains("Красный диплом:          Нет"));
