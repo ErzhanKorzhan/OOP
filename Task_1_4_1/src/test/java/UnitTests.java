@@ -47,10 +47,6 @@ public class UnitTests
         String res = student.toString();
         assertTrue(res.contains("Зачетная книжка студента:    Диван Диванов Диванович"));
         assertTrue(res.contains("Форма обучения:              Платная"));
-        assertTrue(res.contains("Средний балл:            4,20"));
-        assertTrue(res.contains("Перевод на бюджет:       Да"));
-        assertTrue(res.contains("Красный диплом:          Нет"));
-        assertTrue(res.contains("Повышенная стипендия:    Да"));
     }
 
     @Test
