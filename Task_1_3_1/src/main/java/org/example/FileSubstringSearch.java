@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class FileSubstringSearch {
     public static List<Integer> find(String fileName, String substring) {
         List<Integer> result = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8))) {
             int bufferSize = Math.max(10000, substring.length() * 2); // Размер буфера
             char[] buffer = new char[bufferSize];
             int offset = 0;
@@ -31,7 +32,7 @@ public class FileSubstringSearch {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла");
+            System.err.println("Error while reading file");
             return new ArrayList<>();
         }
 
