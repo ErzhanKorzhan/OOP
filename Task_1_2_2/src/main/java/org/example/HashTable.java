@@ -1,68 +1,92 @@
 package org.example;
 
-import java.util.LinkedList;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.ConcurrentModificationException;
+import java.util.*;
 
-public class HashTable<K, V> {
-
-    private static class Entry<K, V> {
-        K key;
-        V value;
-
-        public Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    private final LinkedList<Entry<K, V>>[] table;
-    private final int capacity;
+public class HashTable<K, V> implements Iterable<Entry<K, V>> {
+    private LinkedList<Entry<K, V>>[] table;
+    private int size;          // Количество элементов в таблице
     private int modCount;
 
+    @SuppressWarnings("unchecked")
     public HashTable() {
-        this.capacity = 100000;
-        this.table = new LinkedList[capacity];
-        this.modCount = 0;
+        table = new LinkedList[16];
+        modCount = 0;
+        size = 0;
+    }
+
+    public Iterator<Entry<K, V>> iterator() {
+        return new HashTableIterator();
     }
 
     private int getIndex(K key) {
-        return (key == null ? 0 : Math.abs(key.hashCode())) % capacity;
+        return (key == null ? 0 : Math.abs(key.hashCode())) % table.length;
     }
 
-    // Метод для добавления пары ключ-значение
     public void put(K key, V value) {
+        if (size >= table.length * 0.75f) {
+            resize();
+        }
+
         int index = getIndex(key);
         if (table[index] == null) {
             table[index] = new LinkedList<>();
         }
+        for (Entry<K, V> entry : table[index]) {
+            if (entry.getKey().equals(key)) {
+                entry.setValue(value);
+                return;
+            }
+        }
         table[index].add(new Entry<>(key, value));
         modCount++;
+        size++;
     }
 
-    // Метод для получения значения по ключу
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        @SuppressWarnings("unchecked")
+        HashTable<K, V> other = (HashTable<K, V>) obj;
+        if (this.size != other.size) return false;
+        for (int i = 0; i < this.size; i++) {
+            LinkedList<Entry<K, V>> list = table[i];
+            LinkedList<Entry<K, V>> otherList = other.table[i];
+            if (!Objects.equals(list, otherList)) return false;
+        }
+        return true;
+    }
+
+    public void update(K key, V value) {
+        int index = getIndex(key);
+        for (Entry<K, V> entry : table[index]) {
+            if (entry.getKey().equals(key)) {
+                entry.setValue(value);
+                return;
+            }
+        }
+    }
+
     public V get(K key) {
         int index = getIndex(key);
         if (table[index] != null) {
             for (Entry<K, V> entry : table[index]) {
-                if (entry.key.equals(key)) {
-                    return entry.value;
+                if (entry.getKey().equals(key)) {
+                    return entry.getValue();
                 }
             }
         }
         return null;
     }
 
-    // Метод для удаления пары ключ-значение
     public void remove(K key) {
         int index = getIndex(key);
         if (table[index] != null) {
-            Iterator<Entry<K, V>> iterator = table[index].iterator();
-            while (iterator.hasNext()) {
-                Entry<K, V> entry = iterator.next();
-                if (entry.key.equals(key)) {
-                    iterator.remove();
+            for (Entry<K, V> entry : table[index]) {
+                if (entry.getKey().equals(key)) {
+                    table[index].remove(entry);
+                    size--;
                     modCount++;
                     return;
                 }
@@ -70,91 +94,64 @@ public class HashTable<K, V> {
         }
     }
 
-    // Метод для проверки наличия значения по ключу
     public boolean containsKey(K key) {
         return get(key) != null;
     }
 
-    // Метод для обновления значения по ключу
-    public void update(K key, V newValue) {
-        int index = getIndex(key);
-        if (table[index] != null) {
-            for (Entry<K, V> entry : table[index]) {
-                if (entry.key.equals(key)) {
-                    entry.value = newValue;
-                    return;
-                }
-            }
-        }
-    }
-
-    // итератор с проверкой на модификацию
-    public Iterator<Entry<K, V>> iterator() {
-        return new Iterator<>() {
-            private final int expectedModCount = modCount;
-            private int currentIndex = -1;
-            private Iterator<Entry<K, V>> listIterator;
-
-            @Override
-            public boolean hasNext() {
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
-                while (listIterator == null || !listIterator.hasNext()) {
-                    currentIndex++;
-                    if (currentIndex >= table.length) {
-                        return false;
-                    }
-                    if (table[currentIndex] != null) {
-                        listIterator = table[currentIndex].iterator();
-                    }
-                }
-                return true;
-            }
-
-            @Override
-            public Entry<K, V> next() {
-                if (!hasNext()) {
-                    throw new ConcurrentModificationException();
-                }
-                return listIterator.next();
-            }
-        };
-    }
-
-    // Метод для сравнения с другой хеш-таблицей
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        HashTable<K, V> other = (HashTable<K, V>) obj;
-        for (int i = 0; i < table.length; i++) {
-            LinkedList<Entry<K, V>> list = table[i];
-            LinkedList<Entry<K, V>> otherList = other.table[i];
-            if (!Objects.equals(list, otherList)) {
-                return false;
-            }
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{");
+        for (Entry<K, V> entry : this) {
+            sb.append(entry).append(", ");
         }
-        return true;
+        if (sb.length() > 1) sb.setLength(sb.length() - 2);
+        sb.append("}");
+        return sb.toString();
     }
 
-    // Метод для преобразования в строку
-    public void outString() {
-        boolean flag = false;
-        System.out.print("{");
-        for (LinkedList<Entry<K, V>> entries : table) {
-            if (entries != null) {
-                for (Entry<K, V> entry : entries) {
-                    if (!flag) {
-                        System.out.print(entry.key+"="+entry.value);
-                        flag = true;
-                    }
-                    else{
-                        System.out.print(", "+entry.key+"="+entry.value);
-                    }
+    @SuppressWarnings("unchecked")
+    private void resize() {
+        LinkedList<Entry<K, V>>[] oldTable = table;
+        table = new LinkedList[oldTable.length * 2];
+        size = 0;
+        for (LinkedList<Entry<K, V>> list : oldTable) {
+            if (list != null) {
+                for (Entry<K, V> entry : list) {
+                    put(entry.getKey(), entry.getValue());
                 }
             }
         }
-        System.out.print("}");
+    }
+
+    private class HashTableIterator implements Iterator<Entry<K, V>> {
+        private final int expectedModCount = modCount;
+        private int currentIndex = 0;
+        private Iterator<Entry<K, V>> listIterator;
+
+        @Override
+        public boolean hasNext() {
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException("The hash table has been modified");
+            }
+            while (listIterator == null || !listIterator.hasNext()) {
+                if (currentIndex >= table.length) {
+                    return false;
+                }
+                if (table[currentIndex] != null) {
+                    listIterator = table[currentIndex].iterator();
+                }
+                currentIndex++;
+            }
+            return true;
+        }
+
+        @Override
+        public Entry<K, V> next() {
+            if (!hasNext()) {
+                throw new IllegalStateException("There are no more elements to iterate");
+            }
+            return listIterator.next();
+        }
     }
 }
+
