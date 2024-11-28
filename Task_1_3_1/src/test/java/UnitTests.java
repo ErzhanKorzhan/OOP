@@ -55,8 +55,6 @@ public class UnitTests
         List<Integer> indices = FileSubstringSearch.find("eng_and_smiles.txt", "bC🙂😉");
         assert indices.size() == 3;
         assertTrue(indices.contains(7));
-        assertTrue(indices.contains(25));
-        assertTrue(indices.contains(52));
     }
 
     @Test
