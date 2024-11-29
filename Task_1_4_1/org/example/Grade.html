@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -155,7 +155,7 @@ extends java.lang.Object</pre>
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,int,int)">Grade</a></span>&#8203;(java.lang.String&nbsp;subject,
      java.lang.String&nbsp;type,
      int&nbsp;grade,
-     int&nbsp;semester)</code></th>
+     int&nbsp;semester_num)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -178,32 +178,27 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGrade()">getGrade</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#grade()">grade</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSemester()">getSemester</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#semester_num()">semester_num</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubject()">getSubject</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#subject()">subject</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getType()">getType</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGrade(int)">setGrade</a></span>&#8203;(int&nbsp;grade)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#type()">type</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -239,7 +234,7 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;Grade&#8203;(java.lang.String&nbsp;subject,
              java.lang.String&nbsp;type,
              int&nbsp;grade,
-             int&nbsp;semester)</pre>
+             int&nbsp;semester_num)</pre>
 </li>
 </ul>
 </li>
@@ -252,49 +247,40 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getGrade()">
+<a id="subject()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getGrade</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getGrade()</pre>
+<h4>subject</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;subject()</pre>
 </li>
 </ul>
-<a id="getType()">
+<a id="semester_num()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getType</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getType()</pre>
+<h4>semester_num</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;semester_num()</pre>
 </li>
 </ul>
-<a id="getSemester()">
+<a id="grade()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getSemester</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getSemester()</pre>
+<h4>grade</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;grade()</pre>
 </li>
 </ul>
-<a id="getSubject()">
+<a id="type()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getSubject</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getSubject()</pre>
-</li>
-</ul>
-<a id="setGrade(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setGrade</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setGrade&#8203;(int&nbsp;grade)</pre>
+<h4>type</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;type()</pre>
 </li>
 </ul>
 <a id="toString()">
