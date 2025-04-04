@@ -17,7 +17,6 @@ public class Main {
         int bakersCount = config.get("bakers").size();
         int couriersCount = config.get("couriers").size();
         int storageCapacity = config.get("storageCapacity").asInt();
-        int workTime = config.get("workTime").asInt();
 
         OrderQueue orderQueue = new OrderQueue();
         Storage storage = new Storage(storageCapacity);
@@ -26,23 +25,25 @@ public class Main {
         List<Courier> couriers = new LinkedList<>();
 
         for (int i = 0; i < bakersCount; i++) {
+            String name = config.get("bakers").get(i).get("name").asText();
             int speed = config.get("bakers").get(i).get("speed").asInt();
-            bakers.add(new Baker(i, speed, orderQueue, storage));
+            bakers.add(new Baker(name, speed, orderQueue, storage));
         }
         for (int i = 0; i < couriersCount; i++) {
+            String name = config.get("couriers").get(i).get("name").asText();
             int capacity = config.get("couriers").get(i).get("capacity").asInt();
-            couriers.add(new Courier(i, capacity, storage));
+            couriers.add(new Courier(name, capacity, storage));
         }
 
         bakers.forEach(Thread::start);
         couriers.forEach(Thread::start);
+        int amtOrders = config.get("amt").asInt();
 
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= amtOrders; i++) {
             orderQueue.addOrder(new Order(i));
             Thread.sleep(1000);
         }
 
-        Thread.sleep(workTime);
         bakers.forEach(Thread::interrupt);
         couriers.forEach(Thread::interrupt);
     }

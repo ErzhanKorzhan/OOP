@@ -2,16 +2,15 @@ package pizzeria.workers;
 
 import pizzeria.model.Order;
 import pizzeria.model.Storage;
-
 import java.util.List;
 
 public class Courier extends Thread {
-    private final int id;
+    private final String name;
     private final int capacity;
     private final Storage storage;
 
-    public Courier(int id, int capacity, Storage storage) {
-        this.id = id;
+    public Courier(String name, int capacity, Storage storage) {
+        this.name = name;
         this.capacity = capacity;
         this.storage = storage;
     }
@@ -20,11 +19,13 @@ public class Courier extends Thread {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 List<Order> orders = storage.takePizzas(capacity);
-                System.out.println("Курьер " + id + " доставляет заказы " + orders);
-                Thread.sleep(5000);
+                for (Order order : orders) {
+                    System.out.println("Курьер " + name + " доставляет заказ " + order.getId());
+                    Thread.sleep(300);
+                }
             }
         } catch (InterruptedException e) {
-            System.out.println("Курьер " + id + " завершает работу");
+            System.out.println("Курьер " + name + " завершает работу");
         }
     }
 }

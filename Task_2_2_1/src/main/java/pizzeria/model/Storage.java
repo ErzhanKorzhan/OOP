@@ -12,12 +12,16 @@ public class Storage {
         this.capacity = capacity;
     }
 
+    public Queue<Order> getStorage() {
+        return storage;
+    }
+
     public synchronized void storePizza(Order order) throws InterruptedException {
         while (storage.size() >= capacity) {
             wait();
         }
         storage.add(order);
-        System.out.println("[" + order.getId() + "] Пицца на складе");
+        System.out.println("Заказ №" + order.getId() + " на складе");
         notifyAll();
     }
 
