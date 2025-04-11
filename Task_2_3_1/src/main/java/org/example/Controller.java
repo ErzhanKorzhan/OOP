@@ -27,16 +27,21 @@ public class Controller {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                updateGame();
+                try {
+                    updateGame();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 render();
             }
         };
         timer.start();
     }
 
-    private void updateGame() {
+    private void updateGame() throws InterruptedException {
         if (gameState.isGameOver() || gameState.isGameWon()) return;
 
+        Thread.sleep(200);
         snake.move();
         checkCollisions();
         checkFood();
@@ -59,6 +64,7 @@ public class Controller {
             gameBoard.getFoods().remove(head);
             gameBoard.generateFood(snake);
         } else {
+
             snake.getSegments().remove(snake.getSegments().size() - 1);
         }
     }

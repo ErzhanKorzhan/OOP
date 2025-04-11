@@ -28,10 +28,13 @@ public class Snake {
     public void move() {
         direction = nextDirection;
         Point2D newHead = getHead().add(getDirectionVector());
-        segments.add(0, newHead);
+        segments.removeLast();
+        segments.addFirst(newHead);
     }
 
     public void grow() {
+        Point2D newHead = getHead().add(getDirectionVector());
+        segments.addFirst(newHead);
     }
 
     public Point2D getHead() {
