@@ -1,16 +1,19 @@
-package org.example;
+package parallel.checkers;
+
+import org.example.ArrayPrimeChecker;
 
 import java.util.concurrent.*;
 
 import static org.example.PrimeChecker.isNonPrime;
 
-public class ParallelThread {
+public class ParallelFuture extends ArrayPrimeChecker {
     private final int threadCount;
 
-    public ParallelThread(int threadCount) {
+    public ParallelFuture(int threadCount) {
         this.threadCount = threadCount;
     }
 
+    @Override
     public boolean hasNonPrime(int[] numbers) throws InterruptedException, ExecutionException {
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         CompletionService<Boolean> completionService = new ExecutorCompletionService<>(executor);

@@ -1,7 +1,6 @@
-import org.example.Sequential;
+import parallel.checkers.Sequential;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SequentialUnitTest {

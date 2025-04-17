@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6881a66-1a13-42e8-8596-d345bce9122b" name="Changes" comment="Task_2_1_1">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="a6881a66-1a13-42e8-8596-d345bce9122b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/Sequential.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphic.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PrimeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/PrimeChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ParallelStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ParallelThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelFuture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sequential.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ParallelStreamUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelStreamUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ParallelThreadsUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelThreadUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ParallelThreadUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelFutureUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/SequentialUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SequentialUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +64,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ErzhanKorzhan/OOP.git&quot;,
-    &quot;accountId&quot;: &quot;c6d521c8-367a-4ba6-b2b3-d99a5bba4f19&quot;
+    &quot;accountId&quot;: &quot;99187444-c76c-4356-aa39-7a2f73c71b57&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -79,6 +78,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.ParallelFutureUnitTest.executor": "Run",
+    "Gradle.ParallelThreadUnitTest.executor": "Run",
     "Gradle.ParallelThreadsUnitTest.billionArrayTest10.executor": "Run",
     "Gradle.ParallelThreadsUnitTest.billionArrayTest3.executor": "Run",
     "Gradle.ParallelThreadsUnitTest.exampleArrayTest.executor": "Run",
@@ -91,7 +92,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Task__2__1__1",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "#9 on Task__2__1__1",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ramil/Labs/OOP/OOP/Task_2_1_1",
@@ -109,6 +111,54 @@
   }
 }]]></component>
   <component name="RunManager" selected="Gradle.Tests in 'Task_2_1_1'">
+    <configuration name="ParallelFutureUnitTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ParallelFutureUnitTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ParallelThreadUnitTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ParallelThreadUnitTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="ParallelThreadsUnitTest.billionArrayTest10" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -157,30 +207,6 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ParallelThreadsUnitTest.exampleArrayTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ParallelThreadsUnitTest.exampleArrayTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="Tests in 'Task_2_1_1'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -206,9 +232,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Tests in 'Task_2_1_1'" />
+        <item itemvalue="Gradle.ParallelThreadUnitTest" />
+        <item itemvalue="Gradle.ParallelFutureUnitTest" />
         <item itemvalue="Gradle.ParallelThreadsUnitTest.billionArrayTest3" />
         <item itemvalue="Gradle.ParallelThreadsUnitTest.billionArrayTest10" />
-        <item itemvalue="Gradle.ParallelThreadsUnitTest.exampleArrayTest" />
       </list>
     </recent_temporary>
   </component>
@@ -229,11 +256,26 @@
       <option name="presentableId" value="Default" />
       <updated>1738728383336</updated>
       <workItem from="1743698353644" duration="5319000" />
+      <workItem from="1744355757658" duration="4573000" />
+      <workItem from="1744361126879" duration="2814000" />
+      <workItem from="1744889941534" duration="4457000" />
+      <workItem from="1744896289552" duration="7836000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Task_2_1_1" />
