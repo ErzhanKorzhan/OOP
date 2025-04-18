@@ -1,7 +1,8 @@
 import org.junit.jupiter.api.Test;
 import parallel.checkers.ParallelThread;
 import java.util.Arrays;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParallelThreadUnitTest {
     ParallelThread parallelThreadChecker = new ParallelThread(4);

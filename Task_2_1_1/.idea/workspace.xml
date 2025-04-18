@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6881a66-1a13-42e8-8596-d345bce9122b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/Sequential.java" afterDir="false" />
+    <list default="true" id="a6881a66-1a13-42e8-8596-d345bce9122b" name="Changes" comment="Task_2_1_1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ParallelStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ParallelThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelFuture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sequential.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ParallelStreamUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelStreamUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ParallelThreadUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelFutureUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SequentialUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SequentialUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/parallel/checkers/ParallelThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ParallelRunnableUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelRunnableUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ParallelThreadUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ParallelThreadUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,40 +72,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.ParallelFutureUnitTest.executor": "Run",
-    "Gradle.ParallelThreadUnitTest.executor": "Run",
-    "Gradle.ParallelThreadsUnitTest.billionArrayTest10.executor": "Run",
-    "Gradle.ParallelThreadsUnitTest.billionArrayTest3.executor": "Run",
-    "Gradle.ParallelThreadsUnitTest.exampleArrayTest.executor": "Run",
-    "Gradle.ParallelThreadsUnitTest.executor": "Run",
-    "Gradle.SequentialUnitTest.executor": "Run",
-    "Gradle.Task_2_1_1 [:Main.main()].executor": "Run",
-    "Gradle.Task_2_1_1 [:org.example.Main.main()].executor": "Run",
-    "Gradle.Task_2_1_1.executor": "Run",
-    "Gradle.Tests in 'Task_2_1_1'.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "#9 on Task__2__1__1",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/ramil/Labs/OOP/OOP/Task_2_1_1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Git_OOP/OOP/Task_2_1_1/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.ParallelFutureUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParallelThreadUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParallelThreadsUnitTest.billionArrayTest10.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParallelThreadsUnitTest.billionArrayTest3.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParallelThreadsUnitTest.exampleArrayTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParallelThreadsUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SequentialUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Task_2_1_1 [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Task_2_1_1 [:org.example.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Task_2_1_1.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'Task_2_1_1'.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#9 on Task__2__1__1&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ramil/Labs/OOP/OOP/Task_2_1_1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Git_OOP/OOP/Task_2_1_1/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Gradle.Tests in 'Task_2_1_1'">
     <configuration name="ParallelFutureUnitTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -259,8 +255,18 @@
       <workItem from="1744355757658" duration="4573000" />
       <workItem from="1744361126879" duration="2814000" />
       <workItem from="1744889941534" duration="4457000" />
-      <workItem from="1744896289552" duration="7836000" />
+      <workItem from="1744896289552" duration="8010000" />
+      <workItem from="1744960802256" duration="1230000" />
     </task>
+    <task id="LOCAL-00001" summary="Task_2_1_1">
+      <option name="closed" value="true" />
+      <created>1744913798322</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744913798322</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
