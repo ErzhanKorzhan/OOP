@@ -1,0 +1,13 @@
+{
+  "bakers": [
+    { "name": "Ravi", "speed": 3000 },
+    { "name": "Ravik", "speed": 4000 },
+    { "name": "Ahmat", "speed": 2500 }
+  ],
+  "couriers": [
+    { "name": "Javid", "capacity": 3 },
+    { "name": "Arbik", "capacity": 5 }
+  ],
+  "storageCapacity": 10,
+  "amt": 20
+}
