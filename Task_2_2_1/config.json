@@ -1,13 +1,1 @@
-{
-  "bakers": [
-    { "name": "Ravi", "speed": 3000 },
-    { "name": "Ravik", "speed": 4000 },
-    { "name": "Ahmat", "speed": 2500 }
-  ],
-  "couriers": [
-    { "name": "Javid", "capacity": 3 },
-    { "name": "Arbik", "capacity": 5 }
-  ],
-  "storageCapacity": 10,
-  "amt": 20
-}
+{"storageCapacity":10,"amt":30,"workTime":10000,"bakers":[{"name":"Ravi","speed":1000},{"name":"Ravik","speed":2000},{"name":"Ahmat","speed":1500}],"couriers":[{"name":"Javid","speed":1000,"capacity":3},{"name":"Arbik","speed":2000,"capacity":5}]}

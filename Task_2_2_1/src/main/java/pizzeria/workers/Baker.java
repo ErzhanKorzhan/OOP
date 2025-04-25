@@ -3,6 +3,7 @@ package pizzeria.workers;
 import pizzeria.model.Order;
 import pizzeria.model.OrderQueue;
 import pizzeria.model.Storage;
+import static pizzeria.logger.LoggingComponent.logger;
 
 public class Baker extends Thread {
     private final String name;
@@ -21,12 +22,12 @@ public class Baker extends Thread {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 Order order = orderQueue.takeOrder();
-                System.out.println("Заказ №" + order.getId() + " готовится пекарем " + name);
                 Thread.sleep(speed);
+                logger.info("Пекарь {} приготовил заказ №{}", name, order.getId());
                 storage.storePizza(order);
             }
         } catch (InterruptedException e) {
-            System.out.println("Пекарь " + name + " завершает работу");
+            logger.info("Пекарь {} завершил работу", name);
         }
     }
 }
