@@ -5,6 +5,7 @@ import pizzeria.workers.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import static pizzeria.logger.LoggingComponent.logger;
@@ -16,7 +17,7 @@ public class Pizzeria {
     private final List<Courier> couriers;
     private final ScheduledExecutorService timer;
     private final ConfigReader configReader;
-    private int totalOrders;
+    public static final AtomicInteger count = new AtomicInteger(0);
     public static final AtomicInteger remainingOrders = new AtomicInteger(0);
     private Thread orderGenerationThread;
 
@@ -47,7 +48,7 @@ public class Pizzeria {
     public void start() {
         scheduleShutdown();
         initializeWorkers();
-        generateOrders();
+        addOrders(configReader.getOrderCount());
     }
 
     private void initializeWorkers() {
@@ -61,13 +62,12 @@ public class Pizzeria {
         timer.schedule(this::shutdown, workTime, TimeUnit.MILLISECONDS);
     }
 
-    private void generateOrders() {
-        totalOrders = configReader.getOrderCount();
-        remainingOrders.set(totalOrders);
+    public void addOrders(int numberOfOrders) {
+        remainingOrders.set(remainingOrders.get() + numberOfOrders);
 
         orderGenerationThread = new Thread(() -> {
             try {
-                generateOrdersLoop();
+                addOrdersLoop(numberOfOrders);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -75,12 +75,12 @@ public class Pizzeria {
         orderGenerationThread.start();
     }
 
-    private void generateOrdersLoop() throws InterruptedException {
-        for (int i = 0; i < totalOrders; i++) {
+    private synchronized void addOrdersLoop(int numberOfOrders) throws InterruptedException {
+        for (int i = 0; i < numberOfOrders; i++) {
             if (Thread.currentThread().isInterrupted()) {
                 break;
             }
-            orderQueue.addOrder(new Order(i + 1));
+            orderQueue.addOrder(new Order(count.incrementAndGet()));
             Thread.sleep(1000);
         }
     }

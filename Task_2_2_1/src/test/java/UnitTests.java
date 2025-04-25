@@ -1,28 +1,17 @@
 import org.junit.jupiter.api.*;
 import pizzeria.config.ConfigReader;
 import pizzeria.model.Pizzeria;
+import java.io.IOException;
 import java.nio.file.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PizzeriaSystemTest {
+class UnitTests {
     private static final String CONFIG_PATH = "config.json";
     private static final String LOG_PATH = "logs/pizzeria.log";
     private static String originalConfig;
 
-    @BeforeAll
-    static void backupConfig() throws Exception {
-        // Сохраняем оригинальный конфиг
-        originalConfig = Files.readString(Paths.get(CONFIG_PATH));
-    }
-
-    @AfterAll
-    static void restoreConfig() throws Exception {
-        // Восстанавливаем конфиг после всех тестов
-        Files.write(Paths.get(CONFIG_PATH), originalConfig.getBytes());
-    }
-
     @Test
-    void fullOrderLifecycleTest() throws Exception {
+    void fullOrderLifecycleTest() throws IOException, InterruptedException {
         // 1. Подготовка тестового конфига
         String testConfig = """
         {
@@ -45,6 +34,7 @@ class PizzeriaSystemTest {
         try {
             Pizzeria pizzeria = new Pizzeria(configReader);
             pizzeria.start();
+            pizzeria.addOrders(4);
         } catch (Exception e) {
             fail("Ошибка запуска пиццерии", e);
         }
@@ -54,10 +44,6 @@ class PizzeriaSystemTest {
 
         // 5. Проверка логов
         String logs = Files.readString(path);
-        verifyLogs(logs);
-    }
-
-    private void verifyLogs(String logs) {
         for (int orderId = 1; orderId <= 3; orderId++) {
             String cookedPattern = "Пекарь TestBaker приготовил заказ №" + orderId;
             String deliveredPattern = "Курьер TestCourier доставил заказ №" + orderId;
@@ -67,5 +53,17 @@ class PizzeriaSystemTest {
             assertTrue(logs.contains(deliveredPattern),
                     "Не найдена доставка заказа " + orderId);
         }
+    }
+
+    @BeforeAll
+    static void backupConfig() throws Exception {
+        // Сохраняем оригинальный конфиг
+        originalConfig = Files.readString(Paths.get(CONFIG_PATH));
+    }
+
+    @AfterAll
+    static void restoreConfig() throws Exception {
+        // Восстанавливаем конфиг после всех тестов
+        Files.write(Paths.get(CONFIG_PATH), originalConfig.getBytes());
     }
 }
