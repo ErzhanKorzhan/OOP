@@ -1,3 +1,5 @@
+pizzeria.config
+pizzeria.logger
 pizzeria.main
 pizzeria.model
 pizzeria.workers
