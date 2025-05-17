@@ -1,0 +1,1 @@
+{"storageCapacity":10,"amt":33,"workTime":10000,"bakers":[{"name":"Ravi","speed":1000},{"name":"Ravik","speed":2000},{"name":"Ahmat","speed":1500}],"couriers":[{"name":"Javid","speed":1000,"capacity":3},{"name":"Arbik","speed":2000,"capacity":5}]}
