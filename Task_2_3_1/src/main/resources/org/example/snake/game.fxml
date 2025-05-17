@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane fx:controller="org.example.snake.controller.GameController"
+            xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            onKeyPressed="#onKey"
+            focusTraversable="true">
+
+    <top>
+        <HBox spacing="10" style="-fx-padding: 10; -fx-alignment: Center;">
+            <Label text="Счет: "/>
+            <Label fx:id="lengthLabel" text="0"/>
+        </HBox>
+    </top>
+
+    <center>
+        <Canvas fx:id="gameCanvas"
+                width="600"
+                height="600"
+                focusTraversable="true"/>
+    </center>
+
+</BorderPane>
