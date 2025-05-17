@@ -1,24 +1,31 @@
 plugins {
     id 'java'
     id 'jacoco'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '2.25.0'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group 'org.example'
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
 application {
-    mainClass = 'org.example.Main'
+    mainModule = 'org.example.snake'
+    mainClass = 'org.example.snake.Main'
 }
 
 javafx {
-    version = "21"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = '17.0.6'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
@@ -30,6 +37,18 @@ test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
     finalizedBy javadoc
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'app'
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
 }
 
 jacocoTestReport {
