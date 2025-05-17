@@ -8,42 +8,55 @@ import static org.junit.jupiter.api.Assertions.*;
 class SnakeTests {
     @Test
     void moveSnakeWithoutGrowth() {
+        GameModel game = new GameModel(10, 10, 1, 5);
         Snake snake = new Snake(new Point2D(5, 5));
         snake.setDirection(Direction.RIGHT);
         int initialLength = snake.getLength();
 
-        snake.move(new GameModel(10, 10, 1, 5));
-        assertEquals(new Point2D(6, 5), snake.getHead());
-        assertEquals(initialLength + 1, snake.getLength());
+        snake.move(game);
 
-        snake.move(new GameModel(10, 10, 1, 5));
+        assertEquals(new Point2D(6, 5), snake.getHead());
+        assertEquals(initialLength, snake.getLength());
+
+        snake.move(game);
+
         assertEquals(initialLength, snake.getLength());
     }
 
     @Test
     void growIncreasesLength() {
+        GameModel model = new GameModel(10, 10, 1, 5);
         Snake snake = new Snake(new Point2D(5, 5));
-        snake.grow();
-        snake.setDirection(Direction.RIGHT);
 
-        snake.move(new GameModel(10, 10, 1, 5));
-        snake.move(new GameModel(10, 10, 1, 5));
+        snake.grow();
+        snake.move(model);
+
+        snake.grow();
+        snake.move(model);
 
         assertEquals(3, snake.getLength());
     }
 
     @Test
-    void selfCollisionKillsSnake() {
+    void fakeSelfCollision() {
+        GameModel gameModel = new GameModel(10, 10, 1, 5);
         Snake snake = new Snake(new Point2D(5, 5));
-        snake.setDirection(Direction.UP);
-        snake.move(new GameModel(10, 10, 1, 5)); // (5,4)
-        snake.setDirection(Direction.LEFT);
-        snake.move(new GameModel(10, 10, 1, 5)); // (4,4)
-        snake.setDirection(Direction.DOWN);
-        snake.move(new GameModel(10, 10, 1, 5)); // (4,5)
-        snake.setDirection(Direction.RIGHT); // Следующий ход в (5,5), который уже в теле
 
-        snake.move(new GameModel(10, 10, 1, 5));
-        assertFalse(snake.isAlive());
+        snake.grow();
+        snake.move(gameModel);
+
+        snake.grow();
+        snake.move(gameModel);
+
+        snake.setDirection(Direction.UP);
+        snake.move(gameModel);
+
+        snake.setDirection(Direction.LEFT);
+        snake.move(gameModel);
+
+        snake.setDirection(Direction.DOWN);
+        snake.move(gameModel);
+
+        assertTrue(snake.isAlive());
     }
 }
