@@ -30,7 +30,6 @@ public class GameController {
     public void initialize() {
         gc = gameCanvas.getGraphicsContext2D();
         startNewGame();
-        Platform.runLater(() -> gameCanvas.getParent().requestFocus());
     }
 
     private void startNewGame() {
@@ -59,11 +58,7 @@ public class GameController {
 
         gameCanvas.setFocusTraversable(true);
         gameCanvas.requestFocus();
-
-        Platform.runLater(() -> {
-            gameCanvas.setOnKeyPressed(this::onKey);
-            gameCanvas.getParent().requestFocus();
-        });
+        gameCanvas.setOnKeyPressed(this::onKey);
 
         timer = new AnimationTimer() {
             private long last = 0;
