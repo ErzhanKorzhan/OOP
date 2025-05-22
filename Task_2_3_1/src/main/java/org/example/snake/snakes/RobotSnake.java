@@ -1,8 +1,12 @@
-package org.example.snake.model;
+package org.example.snake.snakes;
+
 import javafx.geometry.Point2D;
+import org.example.snake.model.Direction;
+import org.example.snake.model.GameModel;
+import org.example.snake.model.Strategy;
 
 // Робозмейка, управляющаяся стратегией
-public class RobotSnake extends Snake {
+public class RobotSnake extends PlayerSnake {
     private final Strategy strategy;
 
     public RobotSnake(Point2D start, Strategy strategy) {

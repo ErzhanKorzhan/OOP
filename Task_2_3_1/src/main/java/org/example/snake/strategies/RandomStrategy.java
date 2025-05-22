@@ -1,6 +1,7 @@
 package org.example.snake.strategies;
 
 import org.example.snake.model.*;
+import org.example.snake.snakes.RobotSnake;
 import java.util.*;
 
 // Простейшая стратегия: случайный выбор направления

@@ -2,6 +2,7 @@ package org.example.snake.strategies;
 
 import org.example.snake.model.*;
 import javafx.geometry.Point2D;
+import org.example.snake.snakes.RobotSnake;
 import java.util.*;
 
 public class AggressiveStrategy implements Strategy {
@@ -18,14 +19,14 @@ public class AggressiveStrategy implements Strategy {
 
         // Выбираем цель: еда или игрок
         Point2D target;
-        if (s.getLength() < lengthThreshold && !model.getFoods().isEmpty()) {
+        if (s.getBody().size() < lengthThreshold && !model.getFoods().isEmpty()) {
             // ближайшая еда
             target = model.getFoods().stream()
                     .min(Comparator.comparingDouble(pt -> pt.distance(head)))
                     .orElse(head);
         } else {
             // голова игрока
-            target = model.getSnakes().get(0).getHead();
+            target = model.getSnakes().getFirst().getHead();
         }
 
         // Генерим кандидатов направлений, отсортированных по приоритету
@@ -52,7 +53,7 @@ public class AggressiveStrategy implements Strategy {
             if (isSafe(next, model)) safe.add(d);
         }
 
-        return safe.isEmpty() ? s.dir : safe.get(rnd.nextInt(safe.size()));
+        return safe.isEmpty() ? s.getDirection() : safe.get(rnd.nextInt(safe.size()));
     }
 
     // Обёртка по модулю размеров поля

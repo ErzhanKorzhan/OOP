@@ -1,23 +1,25 @@
 import javafx.geometry.Point2D;
 import org.example.snake.model.GameModel;
 import org.example.snake.model.Snake;
+import org.example.snake.model.SnakeModel;
+import org.example.snake.snakes.PlayerSnake;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameModelTests {
     @Test
-    void foodSpawnAndConsumption() {
-        GameModel model = new GameModel(10, 10, 1, 5);
-        Snake snake = new Snake(new Point2D(5, 5));
+    void modelAndSnakeInit() {
+        GameModel model = new SnakeModel(10, 10, 1, 5);
+        Snake snake = new PlayerSnake(new Point2D(5, 5));
         model.addSnake(snake);
-        assertFalse(model.getFoods().isEmpty());
-        assertEquals(1, snake.getLength());
+        assertTrue(model.getFoods().isEmpty());
+        assertEquals(1, snake.getBody().size());
     }
 
     @Test
     void winConditionTriggered() {
-        GameModel model = new GameModel(10, 10, 1, 3);
-        Snake snake = new Snake(new Point2D(0, 0));
+        GameModel model = new SnakeModel(10, 10, 1, 3);
+        Snake snake = new PlayerSnake(new Point2D(0, 0));
         model.addSnake(snake);
 
         snake.grow();

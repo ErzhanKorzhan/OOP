@@ -2,7 +2,7 @@ package org.example.snake.strategies;
 
 import org.example.snake.model.*;
 import javafx.geometry.Point2D;
-
+import org.example.snake.snakes.RobotSnake;
 import java.util.Comparator;
 
 // Жадная стратегия: движемся к ближайшей еде
@@ -20,6 +20,6 @@ public class GreedyStrategy implements Strategy {
         } else if (dy != 0) {
             return dy > 0 ? Direction.DOWN : Direction.UP;
         }
-        return s.dir;
+        return s.getDirection();
     }
 }

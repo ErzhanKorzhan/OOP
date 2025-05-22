@@ -2,6 +2,8 @@ package org.example.snake.controller;
 
 import javafx.application.Platform;
 import org.example.snake.model.*;
+import org.example.snake.snakes.PlayerSnake;
+import org.example.snake.snakes.RobotSnake;
 import org.example.snake.strategies.AggressiveStrategy;
 import org.example.snake.strategies.GreedyStrategy;
 import javafx.animation.AnimationTimer;
@@ -21,6 +23,9 @@ public class GameController {
     @FXML private Canvas gameCanvas;
     @FXML private Label lengthLabel;
 
+    private enum CellType { EMPTY, SNAKE_PLAYER, SNAKE_PLAYER_HEAD, SNAKE_ROBOT, SNAKE_ROBOT_HEAD, FOOD }
+    private CellType[][] prevState;
+    private CellType[][] currentState;
     private GameModel model;
     private GraphicsContext gc;
     private AnimationTimer timer;
@@ -34,8 +39,8 @@ public class GameController {
 
     private void startNewGame() {
         if (timer != null) timer.stop();
-        model = new GameModel(30, 30, 5, 5);
-        model.addSnake(new Snake(new Point2D(5, 5)));
+        model = new SnakeModel(30, 30, 5, 5);
+        model.addSnake(new PlayerSnake(new Point2D(5, 5)));
 
         // Список стратегий для робозмеек
         List<Strategy> strategies = List.of(
@@ -60,25 +65,91 @@ public class GameController {
         gameCanvas.requestFocus();
         gameCanvas.setOnKeyPressed(this::onKey);
 
+        prevState = new CellType[model.getCols()][model.getRows()];
+        currentState = new CellType[model.getCols()][model.getRows()];
+        initGridState(prevState);
+        initGridState(currentState);
+
+        for (int x = 0; x < currentState.length; x++) {
+            for (int y = 0; y < currentState[0].length; y++) {
+                drawCell(x, y, currentState[x][y]);
+            }
+        }
+
         timer = new AnimationTimer() {
-            private long last = 0;
+            private long lastUpdate = 0;
+            private long accumulatedTime = 0;
+
             @Override
             public void handle(long now) {
-                if (now - last < 200_000_000) return;
-                last = now;
-                dirChangedInTick = false;
+                if (lastUpdate == 0) {
+                    lastUpdate = now;
+                    return;
+                }
 
-                model.update();
-                render();
-                checkRestart();
+                long deltaTime = now - lastUpdate;
+                accumulatedTime += deltaTime;
+                lastUpdate = now;
+
+                boolean updated = false;
+                // Обновляем модель столько раз, сколько прошло интервалов
+                // Фиксированный интервал (200 мс)
+                long interval = 200_000_000;
+                while (accumulatedTime >= interval) {
+                    dirChangedInTick = false; // Сброс флага изменения направления
+                    model.update();
+                    checkRestart(); // Проверка условий завершения игры
+                    accumulatedTime -= interval;
+                    updated = true;
+                }
+
+                if (updated) {
+                    render(); // Рендеринг после обновления модели
+                }
             }
         };
         timer.start();
     }
 
+    private void initGridState(CellType[][] grid) {
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[0].length; y++) {
+                grid[x][y] = CellType.EMPTY;
+            }
+        }
+    }
+
+    private void updateGridState() {
+        // Очищаем текущее состояние
+        initGridState(currentState);
+
+        // Заполняем змейками
+        for (Snake snake : model.getSnakes()) {
+            for (Point2D p : snake.getBody()) {
+                int x = (int) p.getX();
+                int y = (int) p.getY();
+                if (p == snake.getHead()) {
+                    currentState[x][y] = snake instanceof RobotSnake ? CellType.SNAKE_ROBOT_HEAD : CellType.SNAKE_PLAYER_HEAD;
+                } else {
+                    currentState[x][y] = snake instanceof RobotSnake ? CellType.SNAKE_ROBOT : CellType.SNAKE_PLAYER;
+                }
+            }
+        }
+
+        // Заполняем еду
+        for (Point2D food : model.getFoods()) {
+            int x = (int) food.getX();
+            int y = (int) food.getY();
+            if (x >= 0 && x < currentState.length &&
+                    y >= 0 && y < currentState[0].length) {
+                currentState[x][y] = CellType.FOOD;
+            }
+        }
+    }
+
     @FXML
     private void onKey(KeyEvent e) {
-        Snake player = model.getSnakes().get(0);
+        Snake player = model.getSnakes().getFirst();
         if (dirChangedInTick) return;
         switch (e.getCode()) {
             case UP:    player.setDirection(Direction.UP);    dirChangedInTick = true; break;
@@ -90,7 +161,7 @@ public class GameController {
     }
 
     private void checkRestart() {
-        Snake player = model.getSnakes().get(0);
+        Snake player = model.getSnakes().getFirst();
         boolean anyRobotAlive = model.getSnakes().stream()
                 .filter(s -> s instanceof RobotSnake)
                 .anyMatch(Snake::isAlive);
@@ -106,33 +177,59 @@ public class GameController {
                 } else if ((!player.isAlive() && anyRobotAlive) || (!player.isWinner() && anyRobotWin)) {
                     title = "Робозмейки выиграли(";
                 }
-                String content = "Твой счет: " + (player.getLength()-1);
+                String content = "Твой счет: " + (player.getBody().size()-1);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, content, ButtonType.OK);
                 alert.setHeaderText(title);
                 alert.showAndWait();
-                startNewGame(); // Перезапуск игры после нажатия OK
+                startNewGame();
             });
         }
     }
 
     private void render() {
-        gc.setFill(Color.LIGHTGREEN);
-        gc.fillRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
-        gc.setFill(Color.RED);
-        int cellSize = 20;
-        for (Point2D p : model.getFoods()) {
-            gc.fillOval(p.getX() * cellSize, p.getY() * cellSize, cellSize, cellSize);
-        }
-        for (Snake s : model.getSnakes()) {
-            boolean isRobot = s instanceof RobotSnake;
-            gc.setFill(isRobot ? Color.CORNFLOWERBLUE : Color.YELLOW);
-            for (Point2D pt : s.body) {
-                gc.fillRect(pt.getX() * cellSize, pt.getY() * cellSize, cellSize, cellSize);
+        updateGridState();
+
+        // Определяем измененные клетки
+        for (int x = 0; x < currentState.length; x++) {
+            for (int y = 0; y < currentState[0].length; y++) {
+                if (currentState[x][y] != prevState[x][y]) {
+                    drawCell(x, y, currentState[x][y]);
+                    prevState[x][y] = currentState[x][y];
+                }
             }
-            gc.setFill(isRobot ? Color.DARKBLUE : Color.ORANGE);
-            Point2D h = s.getHead();
-            gc.fillRect(h.getX() * cellSize, h.getY() * cellSize, cellSize, cellSize);
         }
-        lengthLabel.setText(String.valueOf(model.getSnakes().get(0).getLength()-1));
+
+        lengthLabel.setText(String.valueOf(model.getSnakes().getFirst().getBody().size()-1));
+    }
+
+    private void drawCell(int x, int y, CellType type) {
+        int cellSize = 20;
+
+        switch (type) {
+            case EMPTY:
+                gc.setFill(Color.LIGHTGREEN);
+                gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                break;
+            case SNAKE_PLAYER:
+                gc.setFill(Color.YELLOW);
+                gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                break;
+            case SNAKE_ROBOT:
+                gc.setFill(Color.CORNFLOWERBLUE);
+                gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                break;
+            case FOOD:
+                gc.setFill(Color.RED);
+                gc.fillOval(x * cellSize, y * cellSize, cellSize, cellSize);
+                break;
+            case SNAKE_ROBOT_HEAD:
+                gc.setFill(Color.DARKBLUE);
+                gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                break;
+            case SNAKE_PLAYER_HEAD:
+                gc.setFill(Color.ORANGE);
+                gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                break;
+        }
     }
 }
